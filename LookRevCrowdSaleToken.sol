@@ -141,17 +141,17 @@ contract LookRevToken is StandardToken {
 
     mapping(address => bool) public kycRequired;
 
-    // Start - Tuesday, August 1, 2017 10:00:00 AM GMT-07:00 DST
-    // End - Friday, September 1, 2017 10:00:00 AM GMT-07:00 DST
-    uint public constant START_DATE = 1501606800;
-    uint public constant END_DATE = 1504285200;
+    // Start - Wednesday, August 16, 2017 10:00:00 AM GMT-07:00 DST
+    // End - Saturday, September 16, 2017 10:00:00 AM GMT-07:00 DST
+    uint public constant START_DATE = 1502902800;
+    uint public constant END_DATE = 1505581200;
 
     uint public constant DECIMALSFACTOR = 10**uint(decimals);
-    uint public constant TOKENS_SOFT_CAP = 10000000 * DECIMALSFACTOR;
-    uint public constant TOKENS_HARD_CAP = 30000000 * DECIMALSFACTOR;
-    uint public constant TOKENS_TOTAL =   100000000 * DECIMALSFACTOR;
+    uint public constant TOKENS_SOFT_CAP =   10000000 * DECIMALSFACTOR;
+    uint public constant TOKENS_HARD_CAP = 1000000000 * DECIMALSFACTOR;
+    uint public constant TOKENS_TOTAL =    3000000000 * DECIMALSFACTOR;
 
-    uint public tokensPerKEther = 300000;
+    uint public tokensPerKEther = 3000000;
     uint public CONTRIBUTIONS_MIN = 0 ether;
     uint public CONTRIBUTIONS_MAX = 0 ether;
 
@@ -211,7 +211,7 @@ contract LookRevToken is StandardToken {
          TokensBought(participant, msg.value, balances[participant], tokens,
               totalSupply, tokensPerKEther);
 
-         if (msg.value > 1000) {
+         if (msg.value > 10000 * DECIMALSFACTOR) {
              // KYC verification required before participant can transfer the tokens
              kycRequired[participant] = true;
          }
@@ -260,9 +260,9 @@ contract LookRevToken is StandardToken {
 
     function kycVerify(address participant, bool _required) onlyOwner {
         kycRequired[participant] = _required;
-        KycVerified(participant);
+        KycVerified(participant, kycRequired[participant]);
     }
-    event KycVerified(address indexed participant);
+    event KycVerified(address indexed participant, bool required);
 
     // Any account can burn _from's tokens as long as the _from account has 
     // approved the _amount to be burnt using
