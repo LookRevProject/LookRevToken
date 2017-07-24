@@ -1,6 +1,19 @@
 pragma solidity ^0.4.11;
 
 /*
+* LOK 'LookRev Token' crowdfunding contract
+*
+* Refer to https://lookrev.com/ for further information.
+* 
+* Developer: LookRev (TM) 2017.
+*
+* Audited by BokkyPooBah / Bok Consulting Pty Ltd 2017.
+* 
+* The MIT License.
+*
+*/
+
+/*
  * ERC20 Token Standard
  * https://github.com/ethereum/EIPs/issues/20
  *
@@ -85,11 +98,11 @@ contract StandardToken is ERC20, Ownable, SafeMath {
 
     function transferFrom(address _from, address _to, uint _amount) returns (bool success) {
         if (balances[_from] >= _amount
-            && allowed[_from][_to] >= _amount
+            && allowed[_from][msg.sender] >= _amount
             && _amount > 0
             && balances[_to] + _amount > balances[_to]) {
             balances[_from] = safeSub(balances[_from],_amount);
-            allowed[_from][_to] = safeSub(allowed[_from][_to],_amount);
+            allowed[_from][msg.sender] = safeSub(allowed[_from][msg.sender],_amount);
             balances[_to] = safeAdd(balances[_to],_amount);
             Transfer(_from, _to, _amount);
             return true;
@@ -134,7 +147,7 @@ contract LookRevToken is StandardToken {
     string public constant name = "LookRev";
     string public constant symbol = "LOK";
     uint8 public constant decimals = 18;
-    string public version = 'LOK1.0';
+    string public VERSION = 'LOK1.0';
     bool public finalised = false;
     
     address public wallet;
@@ -151,9 +164,12 @@ contract LookRevToken is StandardToken {
     uint public constant TOKENS_HARD_CAP = 1000000000 * DECIMALSFACTOR;
     uint public constant TOKENS_TOTAL =    3000000000 * DECIMALSFACTOR;
 
+    // 1 KETHER = 3,000,000 tokens
+    // 1 ETH = 3,000 tokens
     uint public tokensPerKEther = 3000000;
     uint public CONTRIBUTIONS_MIN = 0 ether;
     uint public CONTRIBUTIONS_MAX = 0 ether;
+    uint public constant KYC_THRESHOLD = 10000 * DECIMALSFACTOR;
 
     function LookRevToken(address _wallet, uint _initialSupply) {
       wallet = _wallet;
@@ -170,6 +186,7 @@ contract LookRevToken is StandardToken {
     event WalletUpdated(address newWallet);
 
     // Can only be set before the start of the crowdsale
+    // Owner can change the rate before the crowdsale starts
     function setTokensPerKEther(uint _tokensPerKEther) onlyOwner {
         require(now < START_DATE);
         require(_tokensPerKEther > 0);
@@ -191,7 +208,7 @@ contract LookRevToken is StandardToken {
 
         require(now <= END_DATE);
 
-        require(msg.value >= CONTRIBUTIONS_MIN);
+        require(msg.value > CONTRIBUTIONS_MIN);
         require(CONTRIBUTIONS_MAX == 0 || msg.value < CONTRIBUTIONS_MAX);
 
          // Calculate number of tokens for contributed ETH
@@ -208,10 +225,16 @@ contract LookRevToken is StandardToken {
 
          // Log the tokens purchased 
          Transfer(0x0, participant, tokens);
+         // - buyer = participant
+         // - ethers = msg.value
+         // - participantTokenBalance = balances[participant]
+         // - tokens = tokens
+         // - newTotalSupply = totalSupply
+         // - tokensPerKEther = tokensPerKEther
          TokensBought(participant, msg.value, balances[participant], tokens,
               totalSupply, tokensPerKEther);
 
-         if (msg.value > 10000 * DECIMALSFACTOR) {
+         if (msg.value > KYC_THRESHOLD) {
              // KYC verification required before participant can transfer the tokens
              kycRequired[participant] = true;
          }
@@ -221,7 +244,7 @@ contract LookRevToken is StandardToken {
     }
 
     event TokensBought(address indexed buyer, uint ethers, 
-        uint newEtherBalance, uint tokens, uint newTotalSupply, 
+        uint participantTokenBalance, uint tokens, uint newTotalSupply, 
         uint tokensPerKEther);
 
     function finalise() onlyOwner {
