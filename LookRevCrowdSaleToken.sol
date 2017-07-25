@@ -50,21 +50,27 @@ contract SafeMath {
 
 contract Ownable {
   address public owner;
+  address public newOwner;
 
   function Ownable() {
     owner = msg.sender;
   }
 
-  modifier onlyOwner() {
+  modifier onlyOwner {
     require(msg.sender == owner);
     _;
   }
 
   function transferOwnership(address _newOwner) onlyOwner {
     if (_newOwner != address(0)) {
-      OwnershipTransferred(owner, _newOwner);
-      owner = _newOwner;
+      newOwner = _newOwner;
     }
+  }
+
+  function acceptOwnership() {
+    require(msg.sender == newOwner);
+    OwnershipTransferred(owner, newOwner);
+    owner = newOwner;
   }
   event OwnershipTransferred(address indexed _from, address indexed _to);
 }
@@ -202,7 +208,7 @@ contract LookRevToken is StandardToken {
 
     // Accept ethers and exchanges to purchase tokens on behalf of user
     // msg.value (in units of wei)
-    function proxyPayment(address participant) payable {
+    function proxyPayment(address participant) payable returns (bool success) {
 
         require(!finalised);
 
@@ -240,7 +246,12 @@ contract LookRevToken is StandardToken {
          }
 
          // Transfer the contributed ethers to the crowdsale wallet
-         if (!wallet.send(msg.value)) throw;
+         // throw is deprecated starting from Ethereum v0.9.0
+         if (!wallet.send(msg.value)) {
+            return false;
+         } else {
+            return true;
+         }
     }
 
     event TokensBought(address indexed buyer, uint ethers, 
@@ -289,7 +300,9 @@ contract LookRevToken is StandardToken {
 
     // Any account can burn _from's tokens as long as the _from account has 
     // approved the _amount to be burnt using
-    // approve(0x0, _amount)
+    // First need to approve the burn amount using approve(_spender, _amount).
+    // Mist wallet does not allow 0x0 as input parameter,
+    // therefore use _from address as _spender for approval of the burn.
     function burnFrom(address _from, uint _amount) returns (bool success) {
         if (balances[_from] >= _amount
             && allowed[_from][_from] >= _amount
