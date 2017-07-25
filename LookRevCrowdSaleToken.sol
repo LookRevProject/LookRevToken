@@ -208,7 +208,7 @@ contract LookRevToken is StandardToken {
 
     // Accept ethers and exchanges to purchase tokens on behalf of user
     // msg.value (in units of wei)
-    function proxyPayment(address participant) payable returns (bool success) {
+    function proxyPayment(address participant) payable {
 
         require(!finalised);
 
@@ -247,11 +247,7 @@ contract LookRevToken is StandardToken {
 
          // Transfer the contributed ethers to the crowdsale wallet
          // throw is deprecated starting from Ethereum v0.9.0
-         if (!wallet.send(msg.value)) {
-            return false;
-         } else {
-            return true;
-         }
+         wallet.transfer(msg.value);
     }
 
     event TokensBought(address indexed buyer, uint ethers, 
