@@ -294,19 +294,15 @@ contract LookRevToken is StandardToken {
     }
     event KycVerified(address indexed participant, bool required);
 
-    // Any account can burn _from's tokens as long as the _from account has 
-    // approved the _amount to be burnt using
-    // First need to approve the burn amount using approve(_spender, _amount).
-    // Mist wallet does not allow 0x0 as input parameter,
-    // therefore use _from address as _spender for approval of the burn.
-    function burnFrom(address _from, uint _amount) returns (bool success) {
+    // Burn tokens for admin purpose only. 
+    // Burn tokens from the address _from.
+    function burnFrom(address _from, uint _amount) onlyOwner returns (bool success) {
+        require(totalSupply >= _amount);
+
         if (balances[_from] >= _amount
-            && allowed[_from][_from] >= _amount
             && _amount > 0
-            && balances[0x0] + _amount > balances[0x0]
-        ) {
+            && balances[0x0] + _amount > balances[0x0]) {
             balances[_from] = safeSub(balances[_from],_amount);
-            allowed[_from][_from] = safeSub(allowed[_from][_from],_amount);
             balances[0x0] = safeAdd(balances[0x0],_amount);
             totalSupply = safeSub(totalSupply,_amount);
             Transfer(_from, 0x0, _amount);
