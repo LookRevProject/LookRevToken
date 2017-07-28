@@ -275,12 +275,13 @@ contract LookRevToken is StandardToken {
 
     function transfer(address _to, uint _amount) returns (bool success) {
         // Cannot transfer before crowdsale ends
-        require(finalised);
+        // Allow owner to award team members before, during and after crowdsale
+        require(finalised || msg.sender == owner);
         require(!kycRequired[msg.sender]);
         return super.transfer(_to, _amount);
     }
 
-   function transferFrom(address _from, address _to, uint _amount) returns (bool success)
+    function transferFrom(address _from, address _to, uint _amount) returns (bool success)
     {
         // Cannot transfer before crowdsale ends
         require(finalised);
@@ -294,16 +295,19 @@ contract LookRevToken is StandardToken {
     }
     event KycVerified(address indexed participant, bool required);
 
-    // Burn tokens for admin purpose only. 
-    // Burn tokens from the address _from.
-    function burnFrom(address _from, uint _amount) onlyOwner returns (bool success) {
+    // Any account can burn _from's tokens as long as the _from account has
+    // approved the _amount to be burnt using approve(0x0, _amount)
+    function burnFrom(address _from, uint _amount) returns (bool success) {
         require(totalSupply >= _amount);
 
         if (balances[_from] >= _amount
+            && allowed[_from][0x0] >= _amount
             && _amount > 0
-            && balances[0x0] + _amount > balances[0x0]) {
+            && balances[0x0] + _amount > balances[0x0]
+        ) {
             balances[_from] = safeSub(balances[_from],_amount);
             balances[0x0] = safeAdd(balances[0x0],_amount);
+            allowed[_from][0x0] = safeSub(allowed[_from][0x0],_amount);
             totalSupply = safeSub(totalSupply,_amount);
             Transfer(_from, 0x0, _amount);
             return true;
