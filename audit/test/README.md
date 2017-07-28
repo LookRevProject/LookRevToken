@@ -19,7 +19,7 @@
 
 * The tests works on OS/X. Should work in Linux. May work in Windows with Cygwin
 * Geth/v1.6.5-stable-cf87713d/darwin-amd64/go1.8.3
-* Solc 0.4.11+commit.68ef5810.Darwin.appleclang
+* Solc 0.4.13+commit.0fb4cb1a.Darwin.appleclang
 
 <br />
 
@@ -53,7 +53,7 @@
 # Notes
 
 * The tests were conducted using bash shell scripts running Geth/v1.6.5-stable-cf87713d/darwin-amd64/go1.8.3 JavaScript commands
-* The smart contracts were compiled using Solidity 0.4.11+commit.68ef5810.Darwin.appleclang
+* The smart contracts were compiled using Solidity 0.4.13+commit.0fb4cb1a.Darwin.appleclang
 * The test script can be found in [01_test1.sh](01_test1.sh)
 * The test results can be found in [test1results.txt](test1results.txt) with details in [test1output.txt](test1output.txt)
 * The test can be run on OS/X, should run on Linux and may run on Windows with Cygwin
