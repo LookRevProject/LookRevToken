@@ -260,13 +260,15 @@ contract LookRevToken is StandardToken {
     uint public constant DECIMALSFACTOR = 10**uint(decimals);
     // BK Ok - 10,000,000
     uint public constant TOKENS_SOFT_CAP =   10000000 * DECIMALSFACTOR;
-    // BK Ok - 1,000,000,000
-    uint public constant TOKENS_HARD_CAP = 1000000000 * DECIMALSFACTOR;
-    // BK Ok - 3,000,000,000
-    uint public constant TOKENS_TOTAL =    3000000000 * DECIMALSFACTOR;
+    // BK Ok - 2,000,000,000
+    uint public constant TOKENS_HARD_CAP = 2000000000 * DECIMALSFACTOR;
+    // BK Ok - 4,000,000,000
+    uint public constant TOKENS_TOTAL =    4000000000 * DECIMALSFACTOR;
 
-    // 1 KETHER = 3,000,000 tokens
-    // 1 ETH = 3,000 tokens
+    // 1 KETHER = 2,400,000 tokens
+    // 1 ETH = 2,400 tokens
+    // Presale 20% discount 1 ETH = 3,000 tokens
+    // Presale 10% discount 1 ETH = 2,667 tokens
     uint public tokensPerKEther = 3000000;
     // BK Ok
     uint public CONTRIBUTIONS_MIN = 0 ether;
@@ -413,7 +415,7 @@ contract LookRevToken is StandardToken {
     // BK Ok
     function transfer(address _to, uint _amount) returns (bool success) {
         // Cannot transfer before crowdsale ends
-        // Allow owner to award team members before, during and after crowdsale
+        // Allow awarding team members before, during and after crowdsale
         // BK Ok
         require(finalised || msg.sender == owner);
         // BK Ok
