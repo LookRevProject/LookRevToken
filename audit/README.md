@@ -4,7 +4,20 @@ Status: Work in progress
 
 First review commit [https://github.com/LookRevTeam/LookRevToken/blob/5761ecf12e965af0a5b21caee9964e36b9b10466/LookRevCrowdSaleToken.sol](https://github.com/LookRevTeam/LookRevToken/blob/5761ecf12e965af0a5b21caee9964e36b9b10466/LookRevCrowdSaleToken.sol).
 
-Second review commit [https://github.com/LookRevTeam/LookRevToken/blob/2ce6918c3b06b088338428c5a6ad39a0971ffe58/LookRevCrowdSaleToken.sol](https://github.com/LookRevTeam/LookRevToken/blob/2ce6918c3b06b088338428c5a6ad39a0971ffe58/LookRevCrowdSaleToken.sol).
+Second review commit [https://github.com/LookRevTeam/LookRevToken/blob/98e7e6a52a59d949e038968af34442e17ec24165/LookRevCrowdSaleToken.sol](https://github.com/LookRevTeam/LookRevToken/blob/98e7e6a52a59d949e038968af34442e17ec24165/LookRevCrowdSaleToken.sol).
+
+## Updates
+
+* Jul 29 2017 The code from the second review commit has been deployed to [0x82871e14Abf646925166a7D3A88E99c225A158B3](https://etherscan.io/address/0x82871e14Abf646925166a7D3A88E99c225A158B3#code) with the following parameters:
+
+      wallet: 0x1028f4a71146e4a0d26e8fe99207f136160deb08
+      initialSupply: new BigNumber("84595161401484a000000", 16).shift(-18) = 10000000
+      START_DATE: 1502902800, or new Date(1502902800 * 1000).toUTCString() = "Wed, 16 Aug 2017 17:00:00 UTC"
+      END_DATE: 1505581200, or new Date(1505581200 * 1000).toUTCString() = "Sat, 16 Sep 2017 17:00:00 UTC"
+
+<br />
+
+<hr />
 
 ## Recommendation
 
