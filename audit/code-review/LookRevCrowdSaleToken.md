@@ -395,6 +395,7 @@ contract LookRevToken is StandardToken {
         finalised = true;
     }
 
+    // BK Ok - Only owner
    function addPrecommitment(address participant, uint balance) onlyOwner {
         // BK Ok
         require(now < START_DATE);
@@ -448,21 +449,35 @@ contract LookRevToken is StandardToken {
 
     // Any account can burn _from's tokens as long as the _from account has
     // approved the _amount to be burnt using approve(0x0, _amount)
+    // BK Ok - Anyone can burn tokens that have been approved for burning
     function burnFrom(address _from, uint _amount) returns (bool success) {
+        // BK Ok - Cannot burn more than total supply
         require(totalSupply >= _amount);
 
+        // BK Ok - Cannot burn more tokens than the token balance 
         if (balances[_from] >= _amount
+            // BK Ok - Cannot burn more tokens that the tokens approved for burning
             && allowed[_from][0x0] >= _amount
+            // BK Ok - Amount must be non-zero
             && _amount > 0
+            // BK Ok - Adding burnt tokens to the 0x0 account - check for overflow
             && balances[0x0] + _amount > balances[0x0]
         ) {
+            // BK Ok
             balances[_from] = safeSub(balances[_from],_amount);
+            // BK Ok
             balances[0x0] = safeAdd(balances[0x0],_amount);
+            // BK Ok
             allowed[_from][0x0] = safeSub(allowed[_from][0x0],_amount);
+            // BK Ok
             totalSupply = safeSub(totalSupply,_amount);
+            // BK Ok - Log event
             Transfer(_from, 0x0, _amount);
+            // BK Ok
             return true;
+        // BK Ok
         } else {
+            // BK Ok
             return false;
         }
     }

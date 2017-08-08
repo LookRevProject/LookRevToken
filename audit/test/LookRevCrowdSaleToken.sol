@@ -50,21 +50,27 @@ contract SafeMath {
 
 contract Ownable {
   address public owner;
+  address public newOwner;
 
   function Ownable() {
     owner = msg.sender;
   }
 
-  modifier onlyOwner() {
+  modifier onlyOwner {
     require(msg.sender == owner);
     _;
   }
 
   function transferOwnership(address _newOwner) onlyOwner {
     if (_newOwner != address(0)) {
-      OwnershipTransferred(owner, _newOwner);
-      owner = _newOwner;
+      newOwner = _newOwner;
     }
+  }
+
+  function acceptOwnership() {
+    require(msg.sender == newOwner);
+    OwnershipTransferred(owner, newOwner);
+    owner = newOwner;
   }
   event OwnershipTransferred(address indexed _from, address indexed _to);
 }
@@ -156,16 +162,18 @@ contract LookRevToken is StandardToken {
 
     // Start - Wednesday, August 16, 2017 10:00:00 AM GMT-07:00 DST
     // End - Saturday, September 16, 2017 10:00:00 AM GMT-07:00 DST
-    uint public constant START_DATE = 1500897352; // Mon 24 Jul 2017 11:55:52 UTC
-    uint public constant END_DATE = 1500897457; // Mon 24 Jul 2017 11:57:37 UTC
+    uint public constant START_DATE = 1502215304; // Tue  8 Aug 2017 18:01:44 UTC
+    uint public constant END_DATE = 1502215409; // Tue  8 Aug 2017 18:03:29 UTC
 
     uint public constant DECIMALSFACTOR = 10**uint(decimals);
     uint public constant TOKENS_SOFT_CAP =   10000 * DECIMALSFACTOR;
-    uint public constant TOKENS_HARD_CAP = 1000000 * DECIMALSFACTOR;
-    uint public constant TOKENS_TOTAL =    3000000 * DECIMALSFACTOR;
+    uint public constant TOKENS_HARD_CAP = 2000000 * DECIMALSFACTOR;
+    uint public constant TOKENS_TOTAL =    4000000 * DECIMALSFACTOR;
 
-    // 1 KETHER = 3,000,000 tokens
-    // 1 ETH = 3,000 tokens
+    // 1 KETHER = 2,400,000 tokens
+    // 1 ETH = 2,400 tokens
+    // Presale 20% discount 1 ETH = 3,000 tokens
+    // Presale 10% discount 1 ETH = 2,667 tokens
     uint public tokensPerKEther = 3000000;
     uint public CONTRIBUTIONS_MIN = 0 ether;
     uint public CONTRIBUTIONS_MAX = 0 ether;
@@ -240,7 +248,8 @@ contract LookRevToken is StandardToken {
          }
 
          // Transfer the contributed ethers to the crowdsale wallet
-         if (!wallet.send(msg.value)) throw;
+         // throw is deprecated starting from Ethereum v0.9.0
+         wallet.transfer(msg.value);
     }
 
     event TokensBought(address indexed buyer, uint ethers, 
@@ -268,7 +277,8 @@ contract LookRevToken is StandardToken {
 
     function transfer(address _to, uint _amount) returns (bool success) {
         // Cannot transfer before crowdsale ends
-        require(finalised);
+        // Allow awarding team members before, during and after crowdsale
+        require(finalised || msg.sender == owner);
         require(!kycRequired[msg.sender]);
         return super.transfer(_to, _amount);
     }
@@ -287,18 +297,19 @@ contract LookRevToken is StandardToken {
     }
     event KycVerified(address indexed participant, bool required);
 
-    // Any account can burn _from's tokens as long as the _from account has 
-    // approved the _amount to be burnt using
-    // approve(0x0, _amount)
+    // Any account can burn _from's tokens as long as the _from account has
+    // approved the _amount to be burnt using approve(0x0, _amount)
     function burnFrom(address _from, uint _amount) returns (bool success) {
+        require(totalSupply >= _amount);
+
         if (balances[_from] >= _amount
-            && allowed[_from][_from] >= _amount
+            && allowed[_from][0x0] >= _amount
             && _amount > 0
             && balances[0x0] + _amount > balances[0x0]
         ) {
             balances[_from] = safeSub(balances[_from],_amount);
-            allowed[_from][_from] = safeSub(allowed[_from][_from],_amount);
             balances[0x0] = safeAdd(balances[0x0],_amount);
+            allowed[_from][0x0] = safeSub(allowed[_from][0x0],_amount);
             totalSupply = safeSub(totalSupply,_amount);
             Transfer(_from, 0x0, _amount);
             return true;

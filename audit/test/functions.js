@@ -196,7 +196,8 @@ function printTokenContractDetails() {
     console.log("RESULT: token.TOKENS_TOTAL=" + contract.TOKENS_TOTAL().shift(-decimals));
     console.log("RESULT: token.CONTRIBUTIONS_MIN=" + contract.CONTRIBUTIONS_MIN().shift(-18));
     console.log("RESULT: token.CONTRIBUTIONS_MAX=" + contract.CONTRIBUTIONS_MAX().shift(-18));
-    console.log("RESULT: token.tokensPerKEther=" + contract.tokensPerKEther());
+    console.log("RESULT: token.tokensPerKEther=" + contract.tokensPerKEther() + " (1 ETH=" + 
+        contract.tokensPerKEther().shift(-3) + " " + contract.symbol() + ")");
     var startDate = contract.START_DATE();
     console.log("RESULT: token.START_DATE=" + startDate + " " + new Date(startDate * 1000).toUTCString());
     var endDate = contract.END_DATE();
