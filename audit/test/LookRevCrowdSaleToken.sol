@@ -162,13 +162,13 @@ contract LookRevToken is StandardToken {
 
     // Start - Wednesday, August 16, 2017 10:00:00 AM GMT-07:00 DST
     // End - Saturday, September 16, 2017 10:00:00 AM GMT-07:00 DST
-    uint public constant START_DATE = 1502215304; // Tue  8 Aug 2017 18:01:44 UTC
-    uint public constant END_DATE = 1502215409; // Tue  8 Aug 2017 18:03:29 UTC
+    uint public constant START_DATE = 1502347897; // Thu 10 Aug 2017 06:51:37 UTC
+    uint public constant END_DATE = 1502348002; // Thu 10 Aug 2017 06:53:22 UTC
 
     uint public constant DECIMALSFACTOR = 10**uint(decimals);
-    uint public constant TOKENS_SOFT_CAP =   10000 * DECIMALSFACTOR;
-    uint public constant TOKENS_HARD_CAP = 2000000 * DECIMALSFACTOR;
-    uint public constant TOKENS_TOTAL =    4000000 * DECIMALSFACTOR;
+    uint public constant TOKENS_SOFT_CAP =   10000000 * DECIMALSFACTOR;
+    uint public constant TOKENS_HARD_CAP = 2000000000 * DECIMALSFACTOR;
+    uint public constant TOKENS_TOTAL =    4000000000 * DECIMALSFACTOR;
 
     // 1 KETHER = 2,400,000 tokens
     // 1 ETH = 2,400 tokens

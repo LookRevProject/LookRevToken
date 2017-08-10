@@ -81,7 +81,6 @@ contract SafeMath {
   }
 }
 
-// BK NOTE - Would be safer to use the `acceptOwnership()` pattern
 // BK Ok
 contract Ownable {
   // BK Ok
@@ -103,15 +102,22 @@ contract Ownable {
     _;
   }
 
+  // BK Ok
   function transferOwnership(address _newOwner) onlyOwner {
+    // BK Ok
     if (_newOwner != address(0)) {
+      // BK Ok
       newOwner = _newOwner;
     }
   }
 
+  // BK Ok
   function acceptOwnership() {
+    // BK Ok
     require(msg.sender == newOwner);
+    // BK Ok
     OwnershipTransferred(owner, newOwner);
+    // BK Ok
     owner = newOwner;
   }
   // BK Ok
@@ -123,7 +129,7 @@ contract Ownable {
  *
  * Based on code by InvestSeed
  */
-// BK ERROR - There are two errors in `transferFrom(...)`
+// BK Ok
 contract StandardToken is ERC20, Ownable, SafeMath {
 
     // BK Ok
@@ -160,7 +166,7 @@ contract StandardToken is ERC20, Ownable, SafeMath {
         }
     }
 
-    // BK Ok - There were two errors in the first version which has now been fixed
+    // BK Ok
     function transferFrom(address _from, address _to, uint _amount) returns (bool success) {
         // BK Ok - Account has balance to transfer
         if (balances[_from] >= _amount
@@ -227,6 +233,7 @@ contract StandardToken is ERC20, Ownable, SafeMath {
  * Token supply is created in the token contract creation and allocated to owner.
  *
  */
+// BK Ok
 contract LookRevToken is StandardToken {
 
     /*
@@ -324,6 +331,7 @@ contract LookRevToken is StandardToken {
 
     // Accept ethers and exchanges to purchase tokens on behalf of user
     // msg.value (in units of wei)
+    // BK Ok - Any account can contribute ethers for tokens in return when the crowdsale is active
     function proxyPayment(address participant) payable {
 
         // BK Ok
