@@ -56,9 +56,9 @@ printf "ENDTIME         = '$ENDTIME' '$ENDTIME_S'\n" | tee -a $TEST1OUTPUT
 # --- Modify parameters ---
 `perl -pi -e "s/START_DATE \= 1502902800;/START_DATE \= $STARTTIME; \/\/ $STARTTIME_S/" $TOKENTEMPSOL`
 `perl -pi -e "s/END_DATE = 1505581200;/END_DATE \= $ENDTIME; \/\/ $ENDTIME_S/" $TOKENTEMPSOL`
-`perl -pi -e "s/TOKENS_SOFT_CAP \=   10000000/TOKENS_SOFT_CAP \=   10000/" $TOKENTEMPSOL`
-`perl -pi -e "s/TOKENS_HARD_CAP \= 2000000000/TOKENS_HARD_CAP \= 2000000/" $TOKENTEMPSOL`
-`perl -pi -e "s/TOKENS_TOTAL \=    4000000000/TOKENS_TOTAL \=    4000000/" $TOKENTEMPSOL`
+#`perl -pi -e "s/TOKENS_SOFT_CAP \=   10000000/TOKENS_SOFT_CAP \=   10000/" $TOKENTEMPSOL`
+#`perl -pi -e "s/TOKENS_HARD_CAP \= 2000000000/TOKENS_HARD_CAP \= 2000000/" $TOKENTEMPSOL`
+#`perl -pi -e "s/TOKENS_TOTAL \=    4000000000/TOKENS_TOTAL \=    4000000/" $TOKENTEMPSOL`
 
 DIFFS1=`diff $TOKENSOL $TOKENTEMPSOL`
 echo "--- Differences $TOKENSOL $TOKENTEMPSOL ---" | tee -a $TEST1OUTPUT
@@ -82,14 +82,14 @@ console.log("RESULT: ");
 
 
 // -----------------------------------------------------------------------------
-var tokenMessage = "Deploy Token Contract With 10,000 Initial Supply";
+var tokenMessage = "Deploy Token Contract With 10,000,000 Initial Supply";
 // -----------------------------------------------------------------------------
 console.log("RESULT: " + tokenMessage);
 var tokenContract = web3.eth.contract(tokenAbi);
 console.log(JSON.stringify(tokenContract));
 var tokenTx = null;
 var tokenAddress = null;
-var initialTotalSupply = "10000000000000000000000";
+var initialTotalSupply = "10000000000000000000000000";
 
 var token = tokenContract.new(wallet, initialTotalSupply, {from: contractOwnerAccount, data: tokenBin, gas: 6000000},
   function(e, contract) {
@@ -117,7 +117,7 @@ console.log("RESULT: ");
 
 
 // -----------------------------------------------------------------------------
-var preCommitMessage = "Add PreCommitments - 1000 LOK Acc3, 10000 LOK Acc4";
+var preCommitMessage = "Add PreCommitments";
 // -----------------------------------------------------------------------------
 console.log("RESULT: " + preCommitMessage);
 var preCommit1Tx = token.addPrecommitment(account3, "1000000000000000000000", {from: contractOwnerAccount, gas: 400000});
@@ -127,8 +127,8 @@ while (txpool.status.pending > 0) {
 printTxData("preCommit1Tx", preCommit1Tx);
 printTxData("preCommit2Tx", preCommit2Tx);
 printBalances();
-failIfGasEqualsGasUsed(preCommit1Tx, preCommitMessage);
-failIfGasEqualsGasUsed(preCommit2Tx, preCommitMessage);
+failIfGasEqualsGasUsed(preCommit1Tx, preCommitMessage + " - ac3 1,000 LOK");
+failIfGasEqualsGasUsed(preCommit2Tx, preCommitMessage + " - ac4 10,000 LOK");
 printTokenContractDetails();
 console.log("RESULT: ");
 
@@ -144,92 +144,81 @@ while ((new Date()).getTime() <= startTimeDate.getTime()) {
 }
 console.log("RESULT: Waited until startTime at " + startTime + " " + startTimeDate +
   " currentDate=" + new Date());
+console.log("RESULT: ");
 
 
 // -----------------------------------------------------------------------------
-var validContribution1Message = "Send Valid Contribution - 7 ETH From Account5, 14 ETH From Account6";
+var validContribution1Message = "Send Valid Contribution";
 // -----------------------------------------------------------------------------
 console.log("RESULT: " + validContribution1Message);
-var sendValidContribution1Tx = eth.sendTransaction({from: account5, to: tokenAddress, gas: 400000, value: web3.toWei("7", "ether")});
-var sendValidContribution2Tx = eth.sendTransaction({from: account6, to: tokenAddress, gas: 400000, value: web3.toWei("14", "ether")});
+var sendValidContribution1Tx = eth.sendTransaction({from: account5, to: tokenAddress, gas: 400000, value: web3.toWei("11000", "ether")});
+var sendValidContribution2Tx = eth.sendTransaction({from: account6, to: tokenAddress, gas: 400000, value: web3.toWei("100000", "ether")});
 while (txpool.status.pending > 0) {
 }
 printTxData("sendValidContribution1Tx", sendValidContribution1Tx);
 printTxData("sendValidContribution2Tx", sendValidContribution2Tx);
 printBalances();
-failIfGasEqualsGasUsed(sendValidContribution1Tx, validContribution1Message);
-failIfGasEqualsGasUsed(sendValidContribution2Tx, validContribution1Message);
+failIfGasEqualsGasUsed(sendValidContribution1Tx, validContribution1Message + " - ac5 11,000 ETH = 33,000,000 LOK");
+failIfGasEqualsGasUsed(sendValidContribution2Tx, validContribution1Message + " - ac6 100,000 ETH = 300,000,000 LOK");
 printTokenContractDetails();
 console.log("RESULT: ");
 
-exit;
 
 // -----------------------------------------------------------------------------
-var cannotTransferMessage = "Cannot Move Tokens Without Finalisation";
-console.log("RESULT: " + cannotTransferMessage);
-var cannotTransfer1Tx = dct.transfer(account7, "1000000000000", {from: account5, gas: 100000});
-var cannotTransfer2Tx = dct.approve(account8,  "30000000000000000", {from: account6, gas: 100000});
+var finaliseMessage = "Finalise Crowdsale";
+// -----------------------------------------------------------------------------
+console.log("RESULT: " + finaliseMessage);
+var finaliseTx = token.finalise({from: contractOwnerAccount, gas: 400000});
 while (txpool.status.pending > 0) {
 }
-var cannotTransfer3Tx = dct.transferFrom(account6, account8, "30000000000000000", {from: account8, gas: 100000});
-while (txpool.status.pending > 0) {
-}
-printTxData("cannotTransfer1Tx", cannotTransfer1Tx);
-printTxData("cannotTransfer2Tx", cannotTransfer2Tx);
-printTxData("cannotTransfer3Tx", cannotTransfer3Tx);
+printTxData("finaliseTx", finaliseTx);
 printBalances();
-passIfGasEqualsGasUsed(cannotTransfer1Tx, cannotTransferMessage + " - transfer 0.000001 BET ac5 -> ac7. CHECK no movement");
-failIfGasEqualsGasUsed(cannotTransfer2Tx, cannotTransferMessage + " - approve 0.03 BET ac6 -> ac8");
-passIfGasEqualsGasUsed(cannotTransfer3Tx, cannotTransferMessage + " - transferFrom 0.03 BET ac6 -> ac8. CHECK no movement");
-printDctContractDetails();
+failIfGasEqualsGasUsed(finaliseTx, finaliseMessage);
+printTokenContractDetails();
 console.log("RESULT: ");
 
 
 // -----------------------------------------------------------------------------
-var validContribution2Message = "Send Valid Contribution - 79 ETH From Account5";
-console.log("RESULT: " + validContribution2Message);
-var sendValidContribution3Tx = eth.sendTransaction({from: account5, to: dctAddress, gas: 400000, value: web3.toWei("79", "ether")});
+var kycMessage = "KYC Account5";
+// -----------------------------------------------------------------------------
+console.log("RESULT: " + kycMessage);
+var kycTx = token.kycVerify(account5, false, {from: contractOwnerAccount, gas: 400000});
 while (txpool.status.pending > 0) {
 }
-printTxData("sendValidContribution3Tx", sendValidContribution3Tx);
+printTxData("kycTx", kycTx);
 printBalances();
-failIfGasEqualsGasUsed(sendValidContribution3Tx, validContribution2Message);
-printDctContractDetails();
+failIfGasEqualsGasUsed(kycTx, kycMessage);
+printTokenContractDetails();
 console.log("RESULT: ");
 
 
 // -----------------------------------------------------------------------------
-var invalidContribution3Message = "Send Invalid Contribution - 1 ETH From Account7 - Cap Reached";
-console.log("RESULT: " + invalidContribution3Message);
-var sendInvalidContribution1Tx = eth.sendTransaction({from: account7, to: dctAddress, gas: 400000, value: web3.toWei("1", "ether")});
-while (txpool.status.pending > 0) {
-}
-printTxData("sendInvalidContribution1Tx", sendInvalidContribution1Tx);
-printBalances();
-passIfGasEqualsGasUsed(sendInvalidContribution1Tx, invalidContribution3Message);
-printDctContractDetails();
-console.log("RESULT: ");
-
-
+var moveTokenMessage = "Move Tokens After Crowdsale Finalised";
 // -----------------------------------------------------------------------------
-var canTransferMessage = "Can Move Tokens After Cap Reached";
-console.log("RESULT: " + canTransferMessage);
-var canTransfer1Tx = dct.transfer(account7, "1000000000000", {from: account5, gas: 100000});
-var canTransfer2Tx = dct.approve(account8,  "30000000000000000", {from: account6, gas: 100000});
+console.log("RESULT: " + moveTokenMessage);
+var moveToken1Tx = token.transfer(account7, "1000000000000", {from: account3, gas: 100000});
+var moveToken2Tx = token.approve(account8,  "30000000000000000", {from: account4, gas: 100000});
 while (txpool.status.pending > 0) {
 }
-var canTransfer3Tx = dct.transferFrom(account6, account8, "30000000000000000", {from: account8, gas: 100000});
+var moveToken3Tx = token.transferFrom(account4, account9, "30000000000000000", {from: account8, gas: 100000});
+var moveToken4Tx = token.transfer(account8, "40000000000000000000", {from: account5, gas: 100000});
+var moveToken5Tx = token.transfer(account9, "50000000000000000000", {from: account6, gas: 100000});
 while (txpool.status.pending > 0) {
 }
-printTxData("canTransfer1Tx", canTransfer1Tx);
-printTxData("canTransfer2Tx", canTransfer2Tx);
-printTxData("canTransfer3Tx", canTransfer3Tx);
+printTxData("moveToken1Tx", moveToken1Tx);
+printTxData("moveToken2Tx", moveToken2Tx);
+printTxData("moveToken3Tx", moveToken3Tx);
+printTxData("moveToken4Tx", moveToken4Tx);
+printTxData("moveToken5Tx", moveToken5Tx);
 printBalances();
-failIfGasEqualsGasUsed(canTransfer1Tx, canTransferMessage + " - transfer 0.000001 BET ac5 -> ac7. CHECK for movement");
-failIfGasEqualsGasUsed(canTransfer2Tx, canTransferMessage + " - approve 0.03 BET ac6 -> ac8");
-failIfGasEqualsGasUsed(canTransfer3Tx, canTransferMessage + " - transferFrom 0.03 BET ac6 -> ac8. CHECK for movement");
-printDctContractDetails();
+failIfGasEqualsGasUsed(moveToken1Tx, moveTokenMessage + " - transfer 0.000001 LOK ac3 -> ac7. CHECK for movement");
+failIfGasEqualsGasUsed(moveToken2Tx, moveTokenMessage + " - approve 0.03 LOK ac4 -> ac8");
+failIfGasEqualsGasUsed(moveToken3Tx, moveTokenMessage + " - transferFrom 0.03 LOK ac4 -> ac9. CHECK for movement");
+failIfGasEqualsGasUsed(moveToken4Tx, moveTokenMessage + " - transfer 40 LOK ac5 KYC-ed -> ac8. CHECK for movement");
+passIfGasEqualsGasUsed(moveToken5Tx, moveTokenMessage + " - transfer 50 LOK ac6 Not KYC-ed -> ac9. CHECK for NO movement");
+printTokenContractDetails();
 console.log("RESULT: ");
+
 
 EOF
 grep "DATA: " $TEST1OUTPUT | sed "s/DATA: //" > $DEPLOYMENTDATA
