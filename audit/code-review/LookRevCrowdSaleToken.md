@@ -129,7 +129,7 @@ contract Ownable {
  *
  * Based on code by InvestSeed
  */
-// BK ERROR - There are two errors in `transferFrom(...)`
+// BK Ok
 contract StandardToken is ERC20, Ownable, SafeMath {
 
     // BK Ok
@@ -166,7 +166,7 @@ contract StandardToken is ERC20, Ownable, SafeMath {
         }
     }
 
-    // BK Ok - There were two errors in the first version which has now been fixed
+    // BK Ok
     function transferFrom(address _from, address _to, uint _amount) returns (bool success) {
         // BK Ok - Account has balance to transfer
         if (balances[_from] >= _amount
