@@ -7,7 +7,8 @@ Bok Consulting Pty Ltd was commissioned to perform an audit on the crowdsale and
 
 This audit has been conducted on the LookRev's source code in commits
 [5761ecf1](https://github.com/LookRevTeam/LookRevToken/tree/5761ecf12e965af0a5b21caee9964e36b9b10466) to
-[98e7e6a5](https://github.com/LookRevTeam/LookRevToken/tree/98e7e6a52a59d949e038968af34442e17ec24165).
+[98e7e6a5](https://github.com/LookRevTeam/LookRevToken/tree/98e7e6a52a59d949e038968af34442e17ec24165) and
+[e708b6c0](https://github.com/LookRevTeam/LookRevToken/tree/e708b6c01ad6514c7b212b91c39fa0f28b98b3bc).
 
 No potential vulnerabilities have been identified in the crowdsale and token contract.
 
@@ -51,7 +52,7 @@ The token contract is [ERC20](https://github.com/ethereum/eips/issues/20) compli
 * `decimals` is correctly defined as `uint8` instead of `uint256`
 * `transfer(...)` and `transferFrom(...)` will return false if there is an error instead of throwing an error.
 * `transfer(...)` and `transferFrom(...)` have not been built with a check on the size of the data being passed
-* `approve(...)` does not have a requirement that non-zero approval limits need to be set to 0 before a new non-zero limit can be set
+* `approve(...)` has a requirement that non-zero approval limits need to be set to 0 before a new non-zero limit can be set
 
 There is a `burnFrom(...)` function that is used to burn tokens from accounts, but this requires the account to `approve(...)` the
 number of tokens that can be burnt.
@@ -109,6 +110,14 @@ number of tokens that can be burnt.
   and `allowed[_from][_from] = safeSub(allowed[_from][_from],_amount);` should be `allowed[_from][0x0] = safeSub(allowed[_from][0x0],_amount);`.
 
   * [x] Fixed in [98e7e6a5](https://github.com/LookRevTeam/LookRevToken/tree/98e7e6a52a59d949e038968af34442e17ec24165)
+
+* **LOW IMPORTANCE** `uint public initialSupply = 10000000 ...` should be `uint public constant INITIAL_SUPPLY = 10000000 ...`
+
+* **MEDIUM IMPORTANCE** The KYC threshold from `uint public constant KYC_THRESHOLD = 1000000 * DECIMALSFACTOR;` is 1,000,000 ETH ~ 300,000,000 USD (@ 300 ETH/USD).
+  Is this the intended value?
+
+* **VERY LOW IMPORTANCE** `owner = msg.sender;` in `function LookRevToken()` constructor is not necessary, as the owner variable is
+  already set in the `function Ownable()` constructor
 
 <br />
 

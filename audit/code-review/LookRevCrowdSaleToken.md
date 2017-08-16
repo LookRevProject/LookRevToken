@@ -2,9 +2,11 @@
 
 Source file [../../LookRevToken.sol](../../LookRevToken.sol)
 
-First review commit [https://github.com/LookRevTeam/LookRevToken/blob/5761ecf12e965af0a5b21caee9964e36b9b10466/LookRevCrowdSaleToken.sol](https://github.com/LookRevTeam/LookRevToken/blob/5761ecf12e965af0a5b21caee9964e36b9b10466/LookRevCrowdSaleToken.sol).
+First review commit [5761ecf1](https://github.com/LookRevTeam/LookRevToken/blob/5761ecf12e965af0a5b21caee9964e36b9b10466/LookRevCrowdSaleToken.sol).
 
-Second review commit [https://github.com/LookRevTeam/LookRevToken/blob/2ce6918c3b06b088338428c5a6ad39a0971ffe58/LookRevCrowdSaleToken.sol](https://github.com/LookRevTeam/LookRevToken/blob/2ce6918c3b06b088338428c5a6ad39a0971ffe58/LookRevCrowdSaleToken.sol).
+Second review commit [2ce6918c](https://github.com/LookRevTeam/LookRevToken/blob/2ce6918c3b06b088338428c5a6ad39a0971ffe58/LookRevCrowdSaleToken.sol).
+
+Third review commit [e708b6c0](https://github.com/LookRevTeam/LookRevToken/blob/e708b6c01ad6514c7b212b91c39fa0f28b98b3bc/LookRevCrowdSaleToken.sol).
 
 <br />
 
@@ -145,6 +147,10 @@ contract StandardToken is ERC20, Ownable, SafeMath {
 
     // BK Ok
     function transfer(address _to, uint _amount) returns (bool success) {
+        // avoid wasting gas on 0 token transfers
+        // BK Ok
+        if(_amount == 0) return true;
+
         // BK Ok - Account has balance to transfer
         if (balances[msg.sender] >= _amount
             // BK Ok - Transferring non-zero amount
@@ -168,6 +174,10 @@ contract StandardToken is ERC20, Ownable, SafeMath {
 
     // BK Ok
     function transferFrom(address _from, address _to, uint _amount) returns (bool success) {
+        // avoid wasting gas on 0 token transfers
+        // BK Ok
+        if(_amount == 0) return true;
+
         // BK Ok - Account has balance to transfer
         if (balances[_from] >= _amount
             // BK Ok - Was previously `&& allowed[_from][_to] >= _amount`
@@ -201,7 +211,7 @@ contract StandardToken is ERC20, Ownable, SafeMath {
         //  already 0 to mitigate the race condition described here:
         //  https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
         // BK NOTE - `(_value != 0) && (allowed[msg.sender][_spender] != 0)` is the same as
-        //         - `!((_value == 0) || (allowed[msg.sender][_spender] == 0))`
+        // BK NOTE - `!((_value == 0) || (allowed[msg.sender][_spender] == 0))`
         // BK Ok
         if ((_value != 0) && (allowed[msg.sender][_spender] != 0)) {
            // BK Ok
@@ -251,17 +261,17 @@ contract LookRevToken is StandardToken {
     bool public finalised = false;
     
     // BK Ok
-    address public wallet;
+    address public wallet = 0x0;
 
     // BK Ok
     mapping(address => bool) public kycRequired;
 
-    // Start - Wednesday, August 16, 2017 10:00:00 AM GMT-07:00 DST
-    // End - Saturday, September 16, 2017 10:00:00 AM GMT-07:00 DST
-    // BK Ok - `new Date(1502902800 * 1000).toUTCString()` => "Wed, 16 Aug 2017 17:00:00 UTC"
-    uint public constant START_DATE = 1502902800;
-    // BK Ok - `new Date(1505581200 * 1000).toUTCString()` => "Sat, 16 Sep 2017 17:00:00 UTC"
-    uint public constant END_DATE = 1505581200;
+    // Start - Wednesday, August 30, 2017 10:00:00 AM GMT-07:00 DST
+    // End - Saturday, September 30, 2017 10:00:00 AM GMT-07:00 DST
+    // BK Ok - `new Date(1504112400 * 1000).toUTCString()` => "Wed, 30 Aug 2017 17:00:00 UTC"
+    uint public constant START_DATE = 1504112400;
+    // BK Ok - `new Date(1506790800 * 1000).toUTCString()` => "Sat, 30 Sep 2017 17:00:00 UTC"
+    uint public constant END_DATE = 1506790800;
 
     // BK Ok
     uint public constant DECIMALSFACTOR = 10**uint(decimals);
@@ -269,28 +279,29 @@ contract LookRevToken is StandardToken {
     uint public constant TOKENS_SOFT_CAP =   10000000 * DECIMALSFACTOR;
     // BK Ok - 2,000,000,000
     uint public constant TOKENS_HARD_CAP = 2000000000 * DECIMALSFACTOR;
-    // BK Ok - 4,000,000,000
-    uint public constant TOKENS_TOTAL =    4000000000 * DECIMALSFACTOR;
+    // BK Ok - 5,000,000,000
+    uint public constant TOKENS_TOTAL =    5000000000 * DECIMALSFACTOR;
+    // BK Ok - Should be constant INITIAL_SUPPLY
+    uint public initialSupply = 10000000 * DECIMALSFACTOR;
 
     // 1 KETHER = 2,400,000 tokens
     // 1 ETH = 2,400 tokens
-    // Presale 20% discount 1 ETH = 3,000 tokens
-    // Presale 10% discount 1 ETH = 2,667 tokens
-    uint public tokensPerKEther = 3000000;
+    uint public tokensPerKEther = 2400000;
     // BK Ok
     uint public CONTRIBUTIONS_MIN = 0 ether;
     // BK Ok
     uint public CONTRIBUTIONS_MAX = 0 ether;
-    uint public constant KYC_THRESHOLD = 10000 * DECIMALSFACTOR;
+    // BK Ok - KYC threshold 1,000,000 ETH
+    uint public constant KYC_THRESHOLD = 1000000 * DECIMALSFACTOR;
 
     // BK Ok - Constructor
-    function LookRevToken(address _wallet, uint _initialSupply) {
-      // BK Ok
-      wallet = _wallet;
-      // BK Ok
+    function LookRevToken() {
+      // BK Ok - This is not required as it is set in the Ownable constructor
       owner = msg.sender;
       // BK Ok
-      totalSupply = _initialSupply;
+      wallet = owner;
+      // BK Ok
+      totalSupply = initialSupply;
       // BK Ok
       balances[owner] = totalSupply;
     }
@@ -361,7 +372,7 @@ contract LookRevToken is StandardToken {
          // BK Ok
          totalSupply = safeAdd(totalSupply,tokens);
 
-         // Log the tokens purchased
+         // Log the tokens purchased 
          // BK Ok 
          Transfer(0x0, participant, tokens);
          // - buyer = participant
