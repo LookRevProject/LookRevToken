@@ -1,6 +1,6 @@
  # Account                                             EtherBalanceChange                          Token Name
 -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
- 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       30.000000000000000000           0.000000000000000000 Account #0 - Miner
+ 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       35.000000000000000000           0.000000000000000000 Account #0 - Miner
  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433        0.000000000000000000           0.000000000000000000 Account #1 - Contract Owner
  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000000000000000 Account #2 - Wallet
  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.000000000000000000 Account #3 - Precommitments
@@ -16,11 +16,11 @@
 
 
 Deploy Token Contract With 10,000,000 Initial Supply
-tokenAddress=0x90d8927407c79c4a28ee879b821c76fc9bcc2688 gas=6000000 gasUsed=1817552 costETH=0.032715936 costUSD=12.44481489504 @ ETH/USD=380.39 gasPrice=18000000000 block=8 txId=0x214f2c9b14e264288b584cfadc35d5ee404c33779f3e6b4db96ea8f0516c82eb
+tokenAddress=0x8b97d31ff6bfc0c2fd7a0fff69d6b4bd485a832b gas=6000000 gasUsed=1858326 costETH=0.033449868 costUSD=12.72399528852 @ ETH/USD=380.39 gasPrice=18000000000 block=179 txId=0x3ab65819c1fe0c6786a1909fbf3f753dc7128ef34c2a52d34caabeb1be7bd1ef
  # Account                                             EtherBalanceChange                          Token Name
 -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
- 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       40.032715936000000000           0.000000000000000000 Account #0 - Miner
- 1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.032715936000000000    10000000.000000000000000000 Account #1 - Contract Owner
+ 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       45.033449868000000000           0.000000000000000000 Account #0 - Miner
+ 1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.033449868000000000    10000000.000000000000000000 Account #1 - Contract Owner
  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000000000000000 Account #2 - Wallet
  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.000000000000000000 Account #3 - Precommitments
  4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.000000000000000000 Account #4 - Precommitments
@@ -29,36 +29,36 @@ tokenAddress=0x90d8927407c79c4a28ee879b821c76fc9bcc2688 gas=6000000 gasUsed=1817
  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.000000000000000000 Account #7
  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.000000000000000000 Account #8
  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.000000000000000000 Account #9
-10 0x90d8927407c79c4a28ee879b821c76fc9bcc2688        0.000000000000000000           0.000000000000000000 Token 'LOK' 'LookRev'
+10 0x8b97d31ff6bfc0c2fd7a0fff69d6b4bd485a832b        0.000000000000000000           0.000000000000000000 Token 'LOK' 'LookRev'
 -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
                                                                              10000000.000000000000000000 Total Token Balances
 -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
 
 PASS Deploy Token Contract With 10,000,000 Initial Supply
-tokenContractAddress=0x90d8927407c79c4a28ee879b821c76fc9bcc2688
+tokenContractAddress=0x8b97d31ff6bfc0c2fd7a0fff69d6b4bd485a832b
 token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
-token.wallet=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976
+token.wallet=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
 token.symbol=LOK
 token.name=LookRev
 token.decimals=18
 token.totalSupply=10000000
 token.TOKENS_SOFT_CAP=10000000
 token.TOKENS_HARD_CAP=2000000000
-token.TOKENS_TOTAL=4000000000
+token.TOKENS_TOTAL=5000000000
 token.CONTRIBUTIONS_MIN=0
 token.CONTRIBUTIONS_MAX=0
-token.tokensPerKEther=3000000 (1 ETH=3000 LOK)
-token.START_DATE=1502347897 Thu, 10 Aug 2017 06:51:37 UTC
-token.END_DATE=1502348002 Thu, 10 Aug 2017 06:53:22 UTC
+token.tokensPerKEther=2400000 (1 ETH=2400 LOK)
+token.START_DATE=1502893150 Wed, 16 Aug 2017 14:19:10 UTC
+token.END_DATE=1502893255 Wed, 16 Aug 2017 14:20:55 UTC
 token.finalised=false
 
 Add PreCommitments
-preCommit1Tx gas=400000 gasUsed=52791 costETH=0.000950238 costUSD=0.36146103282 @ ETH/USD=380.39 gasPrice=18000000000 block=11 txId=0xb4ef631e845bd0385c36dac5e88f10d9ecf039de13eb241a3562ec02511f6f84
-preCommit2Tx gas=400000 gasUsed=52855 costETH=0.00095139 costUSD=0.3618992421 @ ETH/USD=380.39 gasPrice=18000000000 block=11 txId=0xac1c9dd174582be3d867747f5be6094c14292641d42d585262459d7365579573
+preCommit1Tx gas=400000 gasUsed=52813 costETH=0.000950634 costUSD=0.36161166726 @ ETH/USD=380.39 gasPrice=18000000000 block=181 txId=0x3e07075822b2016d8aad1f55459f01bb0abddd8c071be3f968b332aa1931dd70
+preCommit2Tx gas=400000 gasUsed=52877 costETH=0.000951786 costUSD=0.36204987654 @ ETH/USD=380.39 gasPrice=18000000000 block=181 txId=0xc14b36c3d16a3b5f8611dfc53a3683e1f9fcd826b57171ff033891750328e9a9
  # Account                                             EtherBalanceChange                          Token Name
 -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
- 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       55.034617564000000000           0.000000000000000000 Account #0 - Miner
- 1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.034617564000000000    10000000.000000000000000000 Account #1 - Contract Owner
+ 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       60.035352288000000000           0.000000000000000000 Account #0 - Miner
+ 1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.035352288000000000    10000000.000000000000000000 Account #1 - Contract Owner
  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000000000000000 Account #2 - Wallet
  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000        1000.000000000000000000 Account #3 - Precommitments
  4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000       10000.000000000000000000 Account #4 - Precommitments
@@ -67,173 +67,173 @@ preCommit2Tx gas=400000 gasUsed=52855 costETH=0.00095139 costUSD=0.3618992421 @ 
  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.000000000000000000 Account #7
  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.000000000000000000 Account #8
  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.000000000000000000 Account #9
-10 0x90d8927407c79c4a28ee879b821c76fc9bcc2688        0.000000000000000000           0.000000000000000000 Token 'LOK' 'LookRev'
+10 0x8b97d31ff6bfc0c2fd7a0fff69d6b4bd485a832b        0.000000000000000000           0.000000000000000000 Token 'LOK' 'LookRev'
 -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
                                                                              10011000.000000000000000000 Total Token Balances
 -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
 
 PASS Add PreCommitments - ac3 1,000 LOK
 PASS Add PreCommitments - ac4 10,000 LOK
-tokenContractAddress=0x90d8927407c79c4a28ee879b821c76fc9bcc2688
+tokenContractAddress=0x8b97d31ff6bfc0c2fd7a0fff69d6b4bd485a832b
 token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
-token.wallet=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976
+token.wallet=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
 token.symbol=LOK
 token.name=LookRev
 token.decimals=18
 token.totalSupply=10011000
 token.TOKENS_SOFT_CAP=10000000
 token.TOKENS_HARD_CAP=2000000000
-token.TOKENS_TOTAL=4000000000
+token.TOKENS_TOTAL=5000000000
 token.CONTRIBUTIONS_MIN=0
 token.CONTRIBUTIONS_MAX=0
-token.tokensPerKEther=3000000 (1 ETH=3000 LOK)
-token.START_DATE=1502347897 Thu, 10 Aug 2017 06:51:37 UTC
-token.END_DATE=1502348002 Thu, 10 Aug 2017 06:53:22 UTC
+token.tokensPerKEther=2400000 (1 ETH=2400 LOK)
+token.START_DATE=1502893150 Wed, 16 Aug 2017 14:19:10 UTC
+token.END_DATE=1502893255 Wed, 16 Aug 2017 14:20:55 UTC
 token.finalised=false
-PrecommitmentAdded 0 #11 participant=0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0 balance=1000
-PrecommitmentAdded 1 #11 participant=0xa44a08d3f6933c69212114bb66e2df1813651844 balance=10000
-Transfer 0 #11: _from=0x0000000000000000000000000000000000000000 _to=0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0 value=1000
-Transfer 1 #11: _from=0x0000000000000000000000000000000000000000 _to=0xa44a08d3f6933c69212114bb66e2df1813651844 value=10000
+PrecommitmentAdded 0 #181 participant=0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0 balance=1000
+PrecommitmentAdded 1 #181 participant=0xa44a08d3f6933c69212114bb66e2df1813651844 balance=10000
+Transfer 0 #181: _from=0x0000000000000000000000000000000000000000 _to=0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0 value=1000
+Transfer 1 #181: _from=0x0000000000000000000000000000000000000000 _to=0xa44a08d3f6933c69212114bb66e2df1813651844 value=10000
 
-Waiting until startTime at 1502347897 Thu, 10 Aug 2017 16:51:37 AEST currentDate=Thu, 10 Aug 2017 16:50:59 AEST
-Waited until startTime at 1502347897 Thu, 10 Aug 2017 16:51:37 AEST currentDate=Thu, 10 Aug 2017 16:51:37 AEST
+Waiting until startTime at 1502893150 Thu, 17 Aug 2017 00:19:10 AEST currentDate=Thu, 17 Aug 2017 00:18:48 AEST
+Waited until startTime at 1502893150 Thu, 17 Aug 2017 00:19:10 AEST currentDate=Thu, 17 Aug 2017 00:19:10 AEST
 
 Send Valid Contribution
-sendValidContribution1Tx gas=400000 gasUsed=78947 costETH=0.001421046 costUSD=0.54055168794 @ ETH/USD=380.39 gasPrice=18000000000 block=20 txId=0x5c1cf3f596f2f73666af22787cf55435974febda732aca5a71c0795a34cf41e3
-sendValidContribution2Tx gas=400000 gasUsed=78947 costETH=0.001421046 costUSD=0.54055168794 @ ETH/USD=380.39 gasPrice=18000000000 block=20 txId=0x4d5f631f393c1f083c5ac0b104f114f821a112846ca2ae754e82263b74b9bad0
+sendValidContribution1Tx gas=400000 gasUsed=58769 costETH=0.001057842 costUSD=0.40239251838 @ ETH/USD=380.39 gasPrice=18000000000 block=184 txId=0x1abbf9f1e6985e6920da803352faaaf20c1694e211703c06ae3353c820936486
+sendValidContribution2Tx gas=400000 gasUsed=78947 costETH=0.001421046 costUSD=0.54055168794 @ ETH/USD=380.39 gasPrice=18000000000 block=184 txId=0xb6fc9f1986addd0c4eff1743e53b09e0f4c2248fd74a0a1a74584d24d3f2f2c7
  # Account                                             EtherBalanceChange                          Token Name
 -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
- 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e      100.037459656000000000           0.000000000000000000 Account #0 - Miner
- 1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.034617564000000000    10000000.000000000000000000 Account #1 - Contract Owner
- 2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976   111000.000000000000000000           0.000000000000000000 Account #2 - Wallet
+ 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       70.037831176000000000           0.000000000000000000 Account #0 - Miner
+ 1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433   110999.964647712000000000    10000000.000000000000000000 Account #1 - Contract Owner
+ 2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000000000000000 Account #2 - Wallet
  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000        1000.000000000000000000 Account #3 - Precommitments
  4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000       10000.000000000000000000 Account #4 - Precommitments
- 5 0xa55a151eb00fded1634d27d1127b4be4627079ea   -11000.001421046000000000    33000000.000000000000000000 Account #5
- 6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9  -100000.001421046000000000   300000000.000000000000000000 Account #6
+ 5 0xa55a151eb00fded1634d27d1127b4be4627079ea   -11000.001057842000000000    26400000.000000000000000000 Account #5
+ 6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9  -100000.001421046000000000   240000000.000000000000000000 Account #6
  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.000000000000000000 Account #7
  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.000000000000000000 Account #8
  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.000000000000000000 Account #9
-10 0x90d8927407c79c4a28ee879b821c76fc9bcc2688        0.000000000000000000           0.000000000000000000 Token 'LOK' 'LookRev'
+10 0x8b97d31ff6bfc0c2fd7a0fff69d6b4bd485a832b        0.000000000000000000           0.000000000000000000 Token 'LOK' 'LookRev'
 -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
-                                                                            343011000.000000000000000000 Total Token Balances
+                                                                            276411000.000000000000000000 Total Token Balances
 -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
 
 PASS Send Valid Contribution - ac5 11,000 ETH = 33,000,000 LOK
 PASS Send Valid Contribution - ac6 100,000 ETH = 300,000,000 LOK
-tokenContractAddress=0x90d8927407c79c4a28ee879b821c76fc9bcc2688
+tokenContractAddress=0x8b97d31ff6bfc0c2fd7a0fff69d6b4bd485a832b
 token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
-token.wallet=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976
+token.wallet=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
 token.symbol=LOK
 token.name=LookRev
 token.decimals=18
-token.totalSupply=343011000
+token.totalSupply=276411000
 token.TOKENS_SOFT_CAP=10000000
 token.TOKENS_HARD_CAP=2000000000
-token.TOKENS_TOTAL=4000000000
+token.TOKENS_TOTAL=5000000000
 token.CONTRIBUTIONS_MIN=0
 token.CONTRIBUTIONS_MAX=0
-token.tokensPerKEther=3000000 (1 ETH=3000 LOK)
-token.START_DATE=1502347897 Thu, 10 Aug 2017 06:51:37 UTC
-token.END_DATE=1502348002 Thu, 10 Aug 2017 06:53:22 UTC
+token.tokensPerKEther=2400000 (1 ETH=2400 LOK)
+token.START_DATE=1502893150 Wed, 16 Aug 2017 14:19:10 UTC
+token.END_DATE=1502893255 Wed, 16 Aug 2017 14:20:55 UTC
 token.finalised=false
-Transfer 0 #20: _from=0x0000000000000000000000000000000000000000 _to=0xa55a151eb00fded1634d27d1127b4be4627079ea value=33000000
-Transfer 1 #20: _from=0x0000000000000000000000000000000000000000 _to=0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9 value=300000000
+Transfer 0 #184: _from=0x0000000000000000000000000000000000000000 _to=0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9 value=240000000
+Transfer 1 #184: _from=0x0000000000000000000000000000000000000000 _to=0xa55a151eb00fded1634d27d1127b4be4627079ea value=26400000
 
 Finalise Crowdsale
-finaliseTx gas=400000 gasUsed=27295 costETH=0.00049131 costUSD=0.1868894109 @ ETH/USD=380.39 gasPrice=18000000000 block=22 txId=0x1948a15f5fd4fb65c9d5f64163c33465559892c63fb8510d727b5c99caf01369
+finaliseTx gas=400000 gasUsed=27317 costETH=0.000491706 costUSD=0.18704004534 @ ETH/USD=380.39 gasPrice=18000000000 block=186 txId=0x22b9994ffd24b69ff8b96ab5cf83bee2b9355737631f4199c74e0a7a7bf58b69
  # Account                                             EtherBalanceChange                          Token Name
 -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
- 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e      110.037950966000000000           0.000000000000000000 Account #0 - Miner
- 1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.035108874000000000    10000000.000000000000000000 Account #1 - Contract Owner
- 2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976   111000.000000000000000000           0.000000000000000000 Account #2 - Wallet
+ 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e       80.038322882000000000           0.000000000000000000 Account #0 - Miner
+ 1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433   110999.964156006000000000    10000000.000000000000000000 Account #1 - Contract Owner
+ 2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000000000000000 Account #2 - Wallet
  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000        1000.000000000000000000 Account #3 - Precommitments
  4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000       10000.000000000000000000 Account #4 - Precommitments
- 5 0xa55a151eb00fded1634d27d1127b4be4627079ea   -11000.001421046000000000    33000000.000000000000000000 Account #5
- 6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9  -100000.001421046000000000   300000000.000000000000000000 Account #6
+ 5 0xa55a151eb00fded1634d27d1127b4be4627079ea   -11000.001057842000000000    26400000.000000000000000000 Account #5
+ 6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9  -100000.001421046000000000   240000000.000000000000000000 Account #6
  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.000000000000000000 Account #7
  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.000000000000000000 Account #8
  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.000000000000000000 Account #9
-10 0x90d8927407c79c4a28ee879b821c76fc9bcc2688        0.000000000000000000           0.000000000000000000 Token 'LOK' 'LookRev'
+10 0x8b97d31ff6bfc0c2fd7a0fff69d6b4bd485a832b        0.000000000000000000           0.000000000000000000 Token 'LOK' 'LookRev'
 -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
-                                                                            343011000.000000000000000000 Total Token Balances
+                                                                            276411000.000000000000000000 Total Token Balances
 -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
 
 PASS Finalise Crowdsale
-tokenContractAddress=0x90d8927407c79c4a28ee879b821c76fc9bcc2688
+tokenContractAddress=0x8b97d31ff6bfc0c2fd7a0fff69d6b4bd485a832b
 token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
-token.wallet=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976
+token.wallet=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
 token.symbol=LOK
 token.name=LookRev
 token.decimals=18
-token.totalSupply=343011000
+token.totalSupply=276411000
 token.TOKENS_SOFT_CAP=10000000
 token.TOKENS_HARD_CAP=2000000000
-token.TOKENS_TOTAL=4000000000
+token.TOKENS_TOTAL=5000000000
 token.CONTRIBUTIONS_MIN=0
 token.CONTRIBUTIONS_MAX=0
-token.tokensPerKEther=3000000 (1 ETH=3000 LOK)
-token.START_DATE=1502347897 Thu, 10 Aug 2017 06:51:37 UTC
-token.END_DATE=1502348002 Thu, 10 Aug 2017 06:53:22 UTC
+token.tokensPerKEther=2400000 (1 ETH=2400 LOK)
+token.START_DATE=1502893150 Wed, 16 Aug 2017 14:19:10 UTC
+token.END_DATE=1502893255 Wed, 16 Aug 2017 14:20:55 UTC
 token.finalised=true
 
 KYC Account5
-kycTx gas=400000 gasUsed=14931 costETH=0.000268758 costUSD=0.10223285562 @ ETH/USD=380.39 gasPrice=18000000000 block=24 txId=0xfa8c85e8c60f6ef7bdbdefb65d714bf63a1b55b3611868183e5c31f83bfb0e5e
+kycTx gas=400000 gasUsed=29861 costETH=0.000537498 costUSD=0.20445886422 @ ETH/USD=380.39 gasPrice=18000000000 block=190 txId=0x0f58439f945401dff9a8f177870b647800a58b252ecc345be6e59f1e51b248f5
  # Account                                             EtherBalanceChange                          Token Name
 -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
- 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e      120.038219724000000000           0.000000000000000000 Account #0 - Miner
- 1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.035377632000000000    10000000.000000000000000000 Account #1 - Contract Owner
- 2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976   111000.000000000000000000           0.000000000000000000 Account #2 - Wallet
+ 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e      100.038860380000000000           0.000000000000000000 Account #0 - Miner
+ 1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433   110999.963618508000000000    10000000.000000000000000000 Account #1 - Contract Owner
+ 2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000000000000000 Account #2 - Wallet
  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000        1000.000000000000000000 Account #3 - Precommitments
  4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000       10000.000000000000000000 Account #4 - Precommitments
- 5 0xa55a151eb00fded1634d27d1127b4be4627079ea   -11000.001421046000000000    33000000.000000000000000000 Account #5
- 6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9  -100000.001421046000000000   300000000.000000000000000000 Account #6
+ 5 0xa55a151eb00fded1634d27d1127b4be4627079ea   -11000.001057842000000000    26400000.000000000000000000 Account #5
+ 6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9  -100000.001421046000000000   240000000.000000000000000000 Account #6
  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.000000000000000000 Account #7
  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.000000000000000000 Account #8
  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.000000000000000000 Account #9
-10 0x90d8927407c79c4a28ee879b821c76fc9bcc2688        0.000000000000000000           0.000000000000000000 Token 'LOK' 'LookRev'
+10 0x8b97d31ff6bfc0c2fd7a0fff69d6b4bd485a832b        0.000000000000000000           0.000000000000000000 Token 'LOK' 'LookRev'
 -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
-                                                                            343011000.000000000000000000 Total Token Balances
+                                                                            276411000.000000000000000000 Total Token Balances
 -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
 
 PASS KYC Account5
-tokenContractAddress=0x90d8927407c79c4a28ee879b821c76fc9bcc2688
+tokenContractAddress=0x8b97d31ff6bfc0c2fd7a0fff69d6b4bd485a832b
 token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
-token.wallet=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976
+token.wallet=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
 token.symbol=LOK
 token.name=LookRev
 token.decimals=18
-token.totalSupply=343011000
+token.totalSupply=276411000
 token.TOKENS_SOFT_CAP=10000000
 token.TOKENS_HARD_CAP=2000000000
-token.TOKENS_TOTAL=4000000000
+token.TOKENS_TOTAL=5000000000
 token.CONTRIBUTIONS_MIN=0
 token.CONTRIBUTIONS_MAX=0
-token.tokensPerKEther=3000000 (1 ETH=3000 LOK)
-token.START_DATE=1502347897 Thu, 10 Aug 2017 06:51:37 UTC
-token.END_DATE=1502348002 Thu, 10 Aug 2017 06:53:22 UTC
+token.tokensPerKEther=2400000 (1 ETH=2400 LOK)
+token.START_DATE=1502893150 Wed, 16 Aug 2017 14:19:10 UTC
+token.END_DATE=1502893255 Wed, 16 Aug 2017 14:20:55 UTC
 token.finalised=true
 
 Move Tokens After Crowdsale Finalised
-moveToken1Tx gas=100000 gasUsed=52225 costETH=0.00094005 costUSD=0.3575856195 @ ETH/USD=380.39 gasPrice=18000000000 block=27 txId=0xfea36692d8bb2016cbefebd257ea963f393e58d6a7b34d032cb6f92d14002d90
-moveToken2Tx gas=100000 gasUsed=45865 costETH=0.00082557 costUSD=0.3140385723 @ ETH/USD=380.39 gasPrice=18000000000 block=27 txId=0xcc2b060d5c35845b9386282f1699f5d5fc3689891d78ff0ac666c24dd3dd535f
-moveToken3Tx gas=100000 gasUsed=44005 costETH=0.00079209 costUSD=0.3013031151 @ ETH/USD=380.39 gasPrice=18000000000 block=29 txId=0xbeb45c66dadedec2299e45c44b93a1ff303580a50b09652c8a4c3875295cbdd1
-moveToken4Tx gas=100000 gasUsed=52417 costETH=0.000943506 costUSD=0.35890024734 @ ETH/USD=380.39 gasPrice=18000000000 block=29 txId=0xb660acd27fb66c6fe0fbf9bc30defd1ba6fb591219fbbab4e05a962bd3235776
-moveToken5Tx gas=100000 gasUsed=100000 costETH=0.0018 costUSD=0.684702 @ ETH/USD=380.39 gasPrice=18000000000 block=29 txId=0x1d6ae75b5a8b35bbff0123a6eb4dc9cc7b4840ffa0f62a2cf25921048ad558ee
+moveToken1Tx gas=100000 gasUsed=52273 costETH=0.000940914 costUSD=0.35791427646 @ ETH/USD=380.39 gasPrice=18000000000 block=192 txId=0x36cd8cba0e40b3bca35a716e8395dcde2207a94f876250173f95c3c2e3d306d8
+moveToken2Tx gas=100000 gasUsed=45865 costETH=0.00082557 costUSD=0.3140385723 @ ETH/USD=380.39 gasPrice=18000000000 block=192 txId=0x7e15df2393cdff4db36c905c2a39a0f3886c3a3489553b677729598beb5c0ac3
+moveToken3Tx gas=100000 gasUsed=44031 costETH=0.000792558 costUSD=0.30148113762 @ ETH/USD=380.39 gasPrice=18000000000 block=194 txId=0x4fcea235d6fe478cf19ee622367814c8c597a62d495a4fb102568891c97f641c
+moveToken4Tx gas=100000 gasUsed=52465 costETH=0.00094437 costUSD=0.3592289043 @ ETH/USD=380.39 gasPrice=18000000000 block=194 txId=0xa465be5b8b6da2e2b414098d2e33a6c67687f37c525ba77949af19c91a0d62a8
+moveToken5Tx gas=100000 gasUsed=100000 costETH=0.0018 costUSD=0.684702 @ ETH/USD=380.39 gasPrice=18000000000 block=194 txId=0xf6727b467df50a4b6feb29a1a93d1f9fa5cf37c9ec8212efe519a265c736f921
  # Account                                             EtherBalanceChange                          Token Name
 -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
- 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e      145.043520940000000000           0.000000000000000000 Account #0 - Miner
- 1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.035377632000000000    10000000.000000000000000000 Account #1 - Contract Owner
- 2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976   111000.000000000000000000           0.000000000000000000 Account #2 - Wallet
- 3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0       -0.000940050000000000         999.999999000000000000 Account #3 - Precommitments
+ 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e      120.044163792000000000           0.000000000000000000 Account #0 - Miner
+ 1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433   110999.963618508000000000    10000000.000000000000000000 Account #1 - Contract Owner
+ 2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000000000000000 Account #2 - Wallet
+ 3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0       -0.000940914000000000         999.999999000000000000 Account #3 - Precommitments
  4 0xa44a08d3f6933c69212114bb66e2df1813651844       -0.000825570000000000        9999.970000000000000000 Account #4 - Precommitments
- 5 0xa55a151eb00fded1634d27d1127b4be4627079ea   -11000.002364552000000000    32999960.000000000000000000 Account #5
- 6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9  -100000.003221046000000000   300000000.000000000000000000 Account #6
+ 5 0xa55a151eb00fded1634d27d1127b4be4627079ea   -11000.002002212000000000    26399960.000000000000000000 Account #5
+ 6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9  -100000.003221046000000000   240000000.000000000000000000 Account #6
  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.000001000000000000 Account #7
- 8 0xa88a05d2b88283ce84c8325760b72a64591279a2       -0.000792090000000000          40.000000000000000000 Account #8
+ 8 0xa88a05d2b88283ce84c8325760b72a64591279a2       -0.000792558000000000          40.000000000000000000 Account #8
  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.030000000000000000 Account #9
-10 0x90d8927407c79c4a28ee879b821c76fc9bcc2688        0.000000000000000000           0.000000000000000000 Token 'LOK' 'LookRev'
+10 0x8b97d31ff6bfc0c2fd7a0fff69d6b4bd485a832b        0.000000000000000000           0.000000000000000000 Token 'LOK' 'LookRev'
 -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
-                                                                            343011000.000000000000000000 Total Token Balances
+                                                                            276411000.000000000000000000 Total Token Balances
 -- ------------------------------------------ --------------------------- ------------------------------ ---------------------------
 
 PASS Move Tokens After Crowdsale Finalised - transfer 0.000001 LOK ac3 -> ac7. CHECK for movement
@@ -241,24 +241,24 @@ PASS Move Tokens After Crowdsale Finalised - approve 0.03 LOK ac4 -> ac8
 PASS Move Tokens After Crowdsale Finalised - transferFrom 0.03 LOK ac4 -> ac9. CHECK for movement
 PASS Move Tokens After Crowdsale Finalised - transfer 40 LOK ac5 KYC-ed -> ac8. CHECK for movement
 PASS Move Tokens After Crowdsale Finalised - transfer 50 LOK ac6 Not KYC-ed -> ac9. CHECK for NO movement
-tokenContractAddress=0x90d8927407c79c4a28ee879b821c76fc9bcc2688
+tokenContractAddress=0x8b97d31ff6bfc0c2fd7a0fff69d6b4bd485a832b
 token.owner=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
-token.wallet=0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976
+token.wallet=0xa11aae29840fbb5c86e6fd4cf809eba183aef433
 token.symbol=LOK
 token.name=LookRev
 token.decimals=18
-token.totalSupply=343011000
+token.totalSupply=276411000
 token.TOKENS_SOFT_CAP=10000000
 token.TOKENS_HARD_CAP=2000000000
-token.TOKENS_TOTAL=4000000000
+token.TOKENS_TOTAL=5000000000
 token.CONTRIBUTIONS_MIN=0
 token.CONTRIBUTIONS_MAX=0
-token.tokensPerKEther=3000000 (1 ETH=3000 LOK)
-token.START_DATE=1502347897 Thu, 10 Aug 2017 06:51:37 UTC
-token.END_DATE=1502348002 Thu, 10 Aug 2017 06:53:22 UTC
+token.tokensPerKEther=2400000 (1 ETH=2400 LOK)
+token.START_DATE=1502893150 Wed, 16 Aug 2017 14:19:10 UTC
+token.END_DATE=1502893255 Wed, 16 Aug 2017 14:20:55 UTC
 token.finalised=true
-Approval 0 #27 _owner=0xa44a08d3f6933c69212114bb66e2df1813651844 _spender=0xa88a05d2b88283ce84c8325760b72a64591279a2 _value=0.03
-Transfer 0 #27: _from=0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0 _to=0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec value=0.000001
-Transfer 1 #29: _from=0xa44a08d3f6933c69212114bb66e2df1813651844 _to=0xa99a0ae3354c06b1459fd441a32a3f71005d7da0 value=0.03
-Transfer 2 #29: _from=0xa55a151eb00fded1634d27d1127b4be4627079ea _to=0xa88a05d2b88283ce84c8325760b72a64591279a2 value=40
+Approval 0 #192 _owner=0xa44a08d3f6933c69212114bb66e2df1813651844 _spender=0xa88a05d2b88283ce84c8325760b72a64591279a2 _value=0.03
+Transfer 0 #192: _from=0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0 _to=0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec value=0.000001
+Transfer 1 #194: _from=0xa44a08d3f6933c69212114bb66e2df1813651844 _to=0xa99a0ae3354c06b1459fd441a32a3f71005d7da0 value=0.03
+Transfer 2 #194: _from=0xa55a151eb00fded1634d27d1127b4be4627079ea _to=0xa88a05d2b88283ce84c8325760b72a64591279a2 value=40
 

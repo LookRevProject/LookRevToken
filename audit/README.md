@@ -116,8 +116,10 @@ number of tokens that can be burnt.
 * **MEDIUM IMPORTANCE** The KYC threshold from `uint public constant KYC_THRESHOLD = 1000000 * DECIMALSFACTOR;` is 1,000,000 ETH ~ 300,000,000 USD (@ 300 ETH/USD).
   Is this the intended value?
 
-* **VERY LOW IMPORTANCE** `owner = msg.sender;` in `function LookRevToken()` constructor is not necessary, as the owner variable is
+* **LOW IMPORTANCE** `owner = msg.sender;` in `function LookRevToken()` constructor is not necessary, as the owner variable is
   already set in the `function Ownable()` constructor
+
+* **MEDIUM IMPORTANCE** There is no check that contributions cannot be made before `START_DATE`. Is this intended?
 
 <br />
 
