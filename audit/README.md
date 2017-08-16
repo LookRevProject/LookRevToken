@@ -16,16 +16,16 @@ No potential vulnerabilities have been identified in the crowdsale and token con
 
 ### Crowdsale Mainnet Address
 
-A **test** *LookRevToken* crowdsale/token contract has been deployed to [0x82871e14Abf646925166a7D3A88E99c225A158B3](https://etherscan.io/address/0x82871e14Abf646925166a7D3A88E99c225A158B3#code) with the following parameters:
+The *LookRevToken* crowdsale/token contract has been deployed to [0x21ae23b882a340a22282162086bc98d3e2b73018](https://etherscan.io/address/0x21ae23b882a340a22282162086bc98d3e2b73018#code) with the following parameters:
 
-* START_DATE: 1502902800, or new Date(1502902800 * 1000).toUTCString() = **Wed, 16 Aug 2017 17:00:00 UTC**
-* END_DATE: 1505581200, or new Date(1505581200 * 1000).toUTCString() = **Sat, 16 Sep 2017 17:00:00 UTC**
-* initialSupply: new BigNumber("84595161401484a000000", 16).shift(-18) = **10,000,000**
+* START_DATE: 1504112400, or new Date(1504112400 * 1000).toUTCString() = **Wed, 30 Aug 2017 17:00:00 UTC**
+* END_DATE: 1506790800, or new Date(1506790800 * 1000).toUTCString() = **Sat, 30 Sep 2017 17:00:00 UTC**
+* initialSupply: new BigNumber("10000000000000000000000000").shift(-18) = **10,000,000**
 * TOKENS_SOFT_CAP: new BigNumber("10000000000000000000000000").shift(-18) = **10,000,000**
 * TOKENS_HARD_CAP: new BigNumber("2000000000000000000000000000").shift(-18) = **2,000,000,000**
-* tokensPerKEther: **3,000,000** . The number of tokens per ether is 3,000
+* tokensPerKEther: **2,400,000** . The number of tokens per ether is 2,400
 
-The crowdsale `wallet` is at [0x1028f4a71146e4a0d26e8fe99207f136160deb08](https://etherscan.io/address/0x1028f4a71146e4a0d26e8fe99207f136160deb08).
+The crowdsale `wallet` has the address [0xaa33f0e76ae8ad78751f949df0f8ca0bf7a0e8f0](https://etherscan.io/address/0xaa33f0e76ae8ad78751f949df0f8ca0bf7a0e8f0).
 
 <br />
 
@@ -87,39 +87,37 @@ number of tokens that can be burnt.
 * **HIGH IMPORTANCE** There is an error in the `transferFrom(...)` function. `&& allowed[_from][_to] >= _amount` should be
   `&& allowed[_from][msg.sender] >= _amount`. The `_from` account approves for `msg.sender` as the spender to spend an amount. The
   spender can send up to this amount to any other account, including itself.
-
+  
   Also `allowed[_from][_to] = safeSub(allowed[_from][_to],_amount);` should be `allowed[_from][msg.sender] = safeSub(allowed[_from][msg.sender],_amount);`.
-
   * [x] Fixed in [98e7e6a5](https://github.com/LookRevTeam/LookRevToken/tree/98e7e6a52a59d949e038968af34442e17ec24165)
 
 * **LOW IMPORTANCE** The event `TokensBought` should have the `newEtherBalance` parameter renamed to be `participantTokenBalance`.
-
   * [x] Fixed in [98e7e6a5](https://github.com/LookRevTeam/LookRevToken/tree/98e7e6a52a59d949e038968af34442e17ec24165)
 
 * **LOW IMPORTANCE** In `proxyPayment(...)` the comparison `if (msg.value > 10000 * DECIMALSFACTOR) {` should be set as a constant like 
   `uint public constant KYC_THRESHOLD = 10000 * DECIMALSFACTOR;` and the comparison changed to
   `if (msg.value > KYC_THRESHOLD) {`.
-
   * [x] Fixed in [98e7e6a5](https://github.com/LookRevTeam/LookRevToken/tree/98e7e6a52a59d949e038968af34442e17ec24165)
 
 * **LOW IMPORTANCE** Using the `acceptOwnership(...)` pattern for the *Ownable* contract provides a bit more safety if the contract owner needs to be updated. See [Owned.sol](https://github.com/openanx/OpenANXToken/blob/master/contracts/Owned.sol#L51-L55).
-
   * [x] Fixed in [98e7e6a5](https://github.com/LookRevTeam/LookRevToken/tree/98e7e6a52a59d949e038968af34442e17ec24165)
 
 * **MEDIUM IMPORTANCE** There is an error in the `burnFrom(...)` function. `&& allowed[_from][_from] >= _amount` should be `&& allowed[_from][0x0] >= _amount`
   and `allowed[_from][_from] = safeSub(allowed[_from][_from],_amount);` should be `allowed[_from][0x0] = safeSub(allowed[_from][0x0],_amount);`.
-
   * [x] Fixed in [98e7e6a5](https://github.com/LookRevTeam/LookRevToken/tree/98e7e6a52a59d949e038968af34442e17ec24165)
 
 * **LOW IMPORTANCE** `uint public initialSupply = 10000000 ...` should be `uint public constant INITIAL_SUPPLY = 10000000 ...`
+  * [x] No further changes being made to the deployed contract, unless critical
 
 * **MEDIUM IMPORTANCE** The KYC threshold from `uint public constant KYC_THRESHOLD = 1000000 * DECIMALSFACTOR;` is 1,000,000 ETH ~ 300,000,000 USD (@ 300 ETH/USD).
-  Is this the intended value?
+  * [x] KYC threshold set as expected
 
 * **LOW IMPORTANCE** `owner = msg.sender;` in `function LookRevToken()` constructor is not necessary, as the owner variable is
   already set in the `function Ownable()` constructor
+  * [x] No further changes being made to the deployed contract, unless critical
 
 * **MEDIUM IMPORTANCE** There is no check that contributions cannot be made before `START_DATE`. Is this intended?
+  * [x] No further changes being made to the deployed contract, unless critical
 
 <br />
 
