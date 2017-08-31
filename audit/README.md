@@ -7,7 +7,9 @@ Bok Consulting Pty Ltd was commissioned to perform an audit on the crowdsale and
 
 This audit has been conducted on the LookRev's source code in commits
 [5761ecf1](https://github.com/LookRevTeam/LookRevToken/tree/5761ecf12e965af0a5b21caee9964e36b9b10466) to
-[98e7e6a5](https://github.com/LookRevTeam/LookRevToken/tree/98e7e6a52a59d949e038968af34442e17ec24165).
+[98e7e6a5](https://github.com/LookRevTeam/LookRevToken/tree/98e7e6a52a59d949e038968af34442e17ec24165),
+[e708b6c0](https://github.com/LookRevTeam/LookRevToken/tree/e708b6c01ad6514c7b212b91c39fa0f28b98b3bc) and
+[c0e67cf1](https://github.com/LookRevTeam/LookRevToken/commit/c0e67cf1d9cb93b40d7aa930256723ab36a6598b).
 
 No potential vulnerabilities have been identified in the crowdsale and token contract.
 
@@ -15,16 +17,7 @@ No potential vulnerabilities have been identified in the crowdsale and token con
 
 ### Crowdsale Mainnet Address
 
-A **test** *LookRevToken* crowdsale/token contract has been deployed to [0x82871e14Abf646925166a7D3A88E99c225A158B3](https://etherscan.io/address/0x82871e14Abf646925166a7D3A88E99c225A158B3#code) with the following parameters:
-
-* START_DATE: 1502902800, or new Date(1502902800 * 1000).toUTCString() = **Wed, 16 Aug 2017 17:00:00 UTC**
-* END_DATE: 1505581200, or new Date(1505581200 * 1000).toUTCString() = **Sat, 16 Sep 2017 17:00:00 UTC**
-* initialSupply: new BigNumber("84595161401484a000000", 16).shift(-18) = **10,000,000**
-* TOKENS_SOFT_CAP: new BigNumber("10000000000000000000000000").shift(-18) = **10,000,000**
-* TOKENS_HARD_CAP: new BigNumber("2000000000000000000000000000").shift(-18) = **2,000,000,000**
-* tokensPerKEther: **3,000,000** . The number of tokens per ether is 3,000
-
-The crowdsale `wallet` is at [0x1028f4a71146e4a0d26e8fe99207f136160deb08](https://etherscan.io/address/0x1028f4a71146e4a0d26e8fe99207f136160deb08).
+`{TBA}`
 
 <br />
 
@@ -51,7 +44,7 @@ The token contract is [ERC20](https://github.com/ethereum/eips/issues/20) compli
 * `decimals` is correctly defined as `uint8` instead of `uint256`
 * `transfer(...)` and `transferFrom(...)` will return false if there is an error instead of throwing an error.
 * `transfer(...)` and `transferFrom(...)` have not been built with a check on the size of the data being passed
-* `approve(...)` does not have a requirement that non-zero approval limits need to be set to 0 before a new non-zero limit can be set
+* `approve(...)` has a requirement that non-zero approval limits need to be set to 0 before a new non-zero limit can be set
 
 There is a `burnFrom(...)` function that is used to burn tokens from accounts, but this requires the account to `approve(...)` the
 number of tokens that can be burnt.
@@ -86,29 +79,37 @@ number of tokens that can be burnt.
 * **HIGH IMPORTANCE** There is an error in the `transferFrom(...)` function. `&& allowed[_from][_to] >= _amount` should be
   `&& allowed[_from][msg.sender] >= _amount`. The `_from` account approves for `msg.sender` as the spender to spend an amount. The
   spender can send up to this amount to any other account, including itself.
-
+  
   Also `allowed[_from][_to] = safeSub(allowed[_from][_to],_amount);` should be `allowed[_from][msg.sender] = safeSub(allowed[_from][msg.sender],_amount);`.
-
   * [x] Fixed in [98e7e6a5](https://github.com/LookRevTeam/LookRevToken/tree/98e7e6a52a59d949e038968af34442e17ec24165)
 
 * **LOW IMPORTANCE** The event `TokensBought` should have the `newEtherBalance` parameter renamed to be `participantTokenBalance`.
-
   * [x] Fixed in [98e7e6a5](https://github.com/LookRevTeam/LookRevToken/tree/98e7e6a52a59d949e038968af34442e17ec24165)
 
 * **LOW IMPORTANCE** In `proxyPayment(...)` the comparison `if (msg.value > 10000 * DECIMALSFACTOR) {` should be set as a constant like 
   `uint public constant KYC_THRESHOLD = 10000 * DECIMALSFACTOR;` and the comparison changed to
   `if (msg.value > KYC_THRESHOLD) {`.
-
   * [x] Fixed in [98e7e6a5](https://github.com/LookRevTeam/LookRevToken/tree/98e7e6a52a59d949e038968af34442e17ec24165)
 
 * **LOW IMPORTANCE** Using the `acceptOwnership(...)` pattern for the *Ownable* contract provides a bit more safety if the contract owner needs to be updated. See [Owned.sol](https://github.com/openanx/OpenANXToken/blob/master/contracts/Owned.sol#L51-L55).
-
   * [x] Fixed in [98e7e6a5](https://github.com/LookRevTeam/LookRevToken/tree/98e7e6a52a59d949e038968af34442e17ec24165)
 
 * **MEDIUM IMPORTANCE** There is an error in the `burnFrom(...)` function. `&& allowed[_from][_from] >= _amount` should be `&& allowed[_from][0x0] >= _amount`
   and `allowed[_from][_from] = safeSub(allowed[_from][_from],_amount);` should be `allowed[_from][0x0] = safeSub(allowed[_from][0x0],_amount);`.
-
   * [x] Fixed in [98e7e6a5](https://github.com/LookRevTeam/LookRevToken/tree/98e7e6a52a59d949e038968af34442e17ec24165)
+
+* **LOW IMPORTANCE** `uint public initialSupply = 10000000 ...` should be `uint public constant INITIAL_SUPPLY = 10000000 ...`
+  * [x] No further changes being made to the deployed contract, unless critical
+
+* **MEDIUM IMPORTANCE** The KYC threshold from `uint public constant KYC_THRESHOLD = 1000000 * DECIMALSFACTOR;` is 1,000,000 ETH ~ 300,000,000 USD (@ 300 ETH/USD).
+  * [x] KYC threshold set as expected
+
+* **LOW IMPORTANCE** `owner = msg.sender;` in `function LookRevToken()` constructor is not necessary, as the owner variable is
+  already set in the `function Ownable()` constructor
+  * [x] No further changes being made to the deployed contract, unless critical
+
+* **MEDIUM IMPORTANCE** There is no check that contributions cannot be made before `START_DATE`. Is this intended?
+  * [x] No further changes being made to the deployed contract, unless critical
 
 <br />
 
@@ -208,4 +209,4 @@ See [test](test) for details on the testing.
 
 <br />
 
-(c) BokkyPooBah / Bok Consulting Pty Ltd for LookRev - Aug 10 2017. The MIT Licence.
+(c) BokkyPooBah / Bok Consulting Pty Ltd for LookRev - Sep 1 2017. The MIT Licence.

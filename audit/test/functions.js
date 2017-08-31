@@ -201,6 +201,10 @@ function printTokenContractDetails() {
         contract.tokensPerKEther().shift(-3) + " " + contract.symbol() + ")");
     var startDate = contract.START_DATE();
     console.log("RESULT: token.START_DATE=" + startDate + " " + new Date(startDate * 1000).toUTCString());
+    var bonusOneDate = contract.BONUSONE_DATE();
+    console.log("RESULT: token.BONUSONE_DATE=" + bonusOneDate + " " + new Date(bonusOneDate * 1000).toUTCString());
+    var bonusTwoDate = contract.BONUSTWO_DATE();
+    console.log("RESULT: token.BONUSTWO_DATE=" + bonusTwoDate + " " + new Date(bonusTwoDate * 1000).toUTCString());
     var endDate = contract.END_DATE();
     console.log("RESULT: token.END_DATE=" + endDate + " " + new Date(endDate * 1000).toUTCString());
     console.log("RESULT: token.finalised=" + contract.finalised());
