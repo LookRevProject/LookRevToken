@@ -99,10 +99,10 @@ number of tokens that can be burnt.
   * [x] Fixed in [98e7e6a5](https://github.com/LookRevTeam/LookRevToken/tree/98e7e6a52a59d949e038968af34442e17ec24165)
 
 * **LOW IMPORTANCE** `uint public initialSupply = 10000000 ...` should be `uint public constant INITIAL_SUPPLY = 10000000 ...`
-  * [x] No further changes being made to the deployed contract, unless critical
+  * [x] Fixed in [c0e67cf1](https://github.com/LookRevTeam/LookRevToken/tree/c0e67cf1d9cb93b40d7aa930256723ab36a6598b)
 
 * **MEDIUM IMPORTANCE** The KYC threshold from `uint public constant KYC_THRESHOLD = 1000000 * DECIMALSFACTOR;` is 1,000,000 ETH ~ 300,000,000 USD (@ 300 ETH/USD).
-  * [x] KYC threshold set as expected
+  * [x] KYC threshold set in [c0e67cf1](https://github.com/LookRevTeam/LookRevToken/tree/c0e67cf1d9cb93b40d7aa930256723ab36a6598b)
 
 * **LOW IMPORTANCE** `owner = msg.sender;` in `function LookRevToken()` constructor is not necessary, as the owner variable is
   already set in the `function Ownable()` constructor
@@ -115,6 +115,7 @@ number of tokens that can be burnt.
   `setTokensPerKEther(...)` is overridden by the `tokensPerKEther` logic in `proxyPayment(...)`. The `tokensPerKEther`
   variable can be removed from the *LookRevToken* class scope and moved into the `proxyPayment(...)` function scope,
   and the `setTokensPerKEther(...)` function can be removed.
+  * [x] This functionality will be left in the code in case it is required in future
 
 <br />
 
