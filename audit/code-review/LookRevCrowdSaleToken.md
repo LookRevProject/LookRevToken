@@ -295,6 +295,8 @@ contract LookRevToken is StandardToken {
 
     // 1 KETHER = 2,400,000 tokens
     // 1 ETH = 2,400 tokens
+    // BK NOTE - This assignment is overridden in the proxyPayment(...) function
+    // BK Ok
     uint public tokensPerKEther = 2400000;
     // BK Ok
     uint public CONTRIBUTIONS_MIN = 0 ether;
@@ -328,7 +330,8 @@ contract LookRevToken is StandardToken {
 
     // Can only be set before the start of the crowdsale
     // Owner can change the rate before the crowdsale starts
-    // BK Ok - Owner can change the rate before the crowdsale starts
+    // BK NOTE - This assignment is overridden in the proxyPayment(...) function and this function is obsolete
+    // BK Ok
     function setTokensPerKEther(uint _tokensPerKEther) onlyOwner {
         // BK Ok
         require(now < START_DATE);

@@ -111,6 +111,11 @@ number of tokens that can be burnt.
 * **MEDIUM IMPORTANCE** There is no check that contributions cannot be made before `START_DATE`. Is this intended?
   * [x] No further changes being made to the deployed contract, unless critical
 
+* **LOW IMPORTANCE** The assignment of variable `tokensPerKEther = 2400000` in *LookRevToken* and in 
+  `setTokensPerKEther(...)` is overridden by the `tokensPerKEther` logic in `proxyPayment(...)`. The `tokensPerKEther`
+  variable can be removed from the *LookRevToken* class scope and moved into the `proxyPayment(...)` function scope,
+  and the `setTokensPerKEther(...)` function can be removed.
+
 <br />
 
 <hr />
