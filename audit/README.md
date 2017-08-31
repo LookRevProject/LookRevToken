@@ -17,18 +17,7 @@ No potential vulnerabilities have been identified in the crowdsale and token con
 
 ### Crowdsale Mainnet Address
 
-The following details will be updated with the latest contract details after deployment.
-
-The *LookRevToken* crowdsale/token contract has been deployed to [0x21ae23b882a340a22282162086bc98d3e2b73018](https://etherscan.io/address/0x21ae23b882a340a22282162086bc98d3e2b73018#code) with the following parameters:
-
-* START_DATE: 1504112400, or new Date(1504112400 * 1000).toUTCString() = **Wed, 30 Aug 2017 17:00:00 UTC**
-* END_DATE: 1506790800, or new Date(1506790800 * 1000).toUTCString() = **Sat, 30 Sep 2017 17:00:00 UTC**
-* initialSupply: new BigNumber("10000000000000000000000000").shift(-18) = **10,000,000**
-* TOKENS_SOFT_CAP: new BigNumber("10000000000000000000000000").shift(-18) = **10,000,000**
-* TOKENS_HARD_CAP: new BigNumber("2000000000000000000000000000").shift(-18) = **2,000,000,000**
-* tokensPerKEther: **2,400,000** . The number of tokens per ether is 2,400
-
-The crowdsale `wallet` has the address [0xaa33f0e76ae8ad78751f949df0f8ca0bf7a0e8f0](https://etherscan.io/address/0xaa33f0e76ae8ad78751f949df0f8ca0bf7a0e8f0).
+`{TBA}`
 
 <br />
 
@@ -220,4 +209,4 @@ See [test](test) for details on the testing.
 
 <br />
 
-(c) BokkyPooBah / Bok Consulting Pty Ltd for LookRev - Aug 10 2017. The MIT Licence.
+(c) BokkyPooBah / Bok Consulting Pty Ltd for LookRev - Sep 1 2017. The MIT Licence.

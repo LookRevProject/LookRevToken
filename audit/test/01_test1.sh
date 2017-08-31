@@ -30,10 +30,14 @@ if [ "$MODE" == "dev" ]; then
   STARTTIME=`echo "$CURRENTTIME" | bc`
 else
   # Start time 1m 10s in the future
-  STARTTIME=`echo "$CURRENTTIME+75" | bc`
+  STARTTIME=`echo "$CURRENTTIME+90" | bc`
 fi
 STARTTIME_S=`date -r $STARTTIME -u`
-ENDTIME=`echo "$CURRENTTIME+60*3" | bc`
+BONUSONETIME=`echo "$CURRENTTIME+60*3" | bc`
+BONUSONETIME_S=`date -r $BONUSONETIME -u`
+BONUSTWOTIME=`echo "$CURRENTTIME+60*4" | bc`
+BONUSTWOTIME_S=`date -r $BONUSTWOTIME -u`
+ENDTIME=`echo "$CURRENTTIME+60*5" | bc`
 ENDTIME_S=`date -r $ENDTIME -u`
 
 printf "MODE            = '$MODE'\n" | tee $TEST1OUTPUT
@@ -48,15 +52,19 @@ printf "TEST1OUTPUT     = '$TEST1OUTPUT'\n" | tee -a $TEST1OUTPUT
 printf "TEST1RESULTS    = '$TEST1RESULTS'\n" | tee -a $TEST1OUTPUT
 printf "CURRENTTIME     = '$CURRENTTIME' '$CURRENTTIMES'\n" | tee -a $TEST1OUTPUT
 printf "STARTTIME       = '$STARTTIME' '$STARTTIME_S'\n" | tee -a $TEST1OUTPUT
+printf "BONUSONETIME    = '$BONUSONETIME' '$BONUSONETIME_S'\n" | tee -a $TEST1OUTPUT
+printf "BONUSTWOTIME    = '$BONUSTWOTIME' '$BONUSTWOTIME_S'\n" | tee -a $TEST1OUTPUT
 printf "ENDTIME         = '$ENDTIME' '$ENDTIME_S'\n" | tee -a $TEST1OUTPUT
 
 # Make copy of SOL file and modify start and end times ---
 `cp $TOKENSOL $TOKENTEMPSOL`
 
 # --- Modify parameters ---
-`perl -pi -e "s/START_DATE \= 1504112400;/START_DATE \= $STARTTIME; \/\/ $STARTTIME_S/" $TOKENTEMPSOL`
-`perl -pi -e "s/END_DATE = 1506790800;/END_DATE \= $ENDTIME; \/\/ $ENDTIME_S/" $TOKENTEMPSOL`
-`perl -pi -e "s/KYC_THRESHOLD \= 1000000/KYC_THRESHOLD \= 50000/" $TOKENTEMPSOL`
+`perl -pi -e "s/START_DATE \= 1504882800/START_DATE = $STARTTIME; \/\/ $STARTTIME_S/" $TOKENTEMPSOL`
+`perl -pi -e "s/BONUSONE_DATE \= 1504969200;/BONUSONE_DATE \= $BONUSONETIME; \/\/ $BONUSONETIME_S/" $TOKENTEMPSOL`
+`perl -pi -e "s/BONUSTWO_DATE \= 1505142000;/BONUSTWO_DATE \= $BONUSTWOTIME; \/\/ $BONUSTWOTIME_S/" $TOKENTEMPSOL`
+`perl -pi -e "s/END_DATE \= 1507474800;/END_DATE \= $ENDTIME; \/\/ $ENDTIME_S/" $TOKENTEMPSOL`
+#`perl -pi -e "s/KYC_THRESHOLD = 100/KYC_THRESHOLD = 100/" $TOKENTEMPSOL`
 
 DIFFS1=`diff $TOKENSOL $TOKENTEMPSOL`
 echo "--- Differences $TOKENSOL $TOKENTEMPSOL ---" | tee -a $TEST1OUTPUT
@@ -132,7 +140,8 @@ console.log("RESULT: ");
 
 
 // -----------------------------------------------------------------------------
-// Wait for crowdsale start
+// Wait for crowdsale start, < BONUSONE_DATE
+// tokensPerKEther = 3000000;
 // -----------------------------------------------------------------------------
 var startTime = token.START_DATE();
 var startTimeDate = new Date(startTime * 1000);
@@ -146,18 +155,76 @@ console.log("RESULT: ");
 
 
 // -----------------------------------------------------------------------------
-var validContribution1Message = "Send Valid Contribution";
+var validContribution1Message = "Send Valid Contribution < BONUSONE_DATE";
 // -----------------------------------------------------------------------------
 console.log("RESULT: " + validContribution1Message);
-var sendValidContribution1Tx = eth.sendTransaction({from: account5, to: tokenAddress, gas: 400000, value: web3.toWei("11000", "ether")});
-var sendValidContribution2Tx = eth.sendTransaction({from: account6, to: tokenAddress, gas: 400000, value: web3.toWei("100000", "ether")});
+var sendValidContribution1Tx = eth.sendTransaction({from: account5, to: tokenAddress, gas: 400000, value: web3.toWei("1", "ether")});
 while (txpool.status.pending > 0) {
 }
 printTxData("sendValidContribution1Tx", sendValidContribution1Tx);
+printBalances();
+failIfGasEqualsGasUsed(sendValidContribution1Tx, validContribution1Message + " - ac5 1 ETH = 3,000 LOK");
+printTokenContractDetails();
+console.log("RESULT: ");
+
+
+// -----------------------------------------------------------------------------
+// Wait for BONUSONE_DATE, < BONUSTWO_DATE
+// tokensPerKEther = 2700000;
+// -----------------------------------------------------------------------------
+var bonusOneTime = token.BONUSONE_DATE();
+var bonusOneTimeDate = new Date(bonusOneTime * 1000);
+console.log("RESULT: Waiting until bonusOneTime at " + bonusOneTime + " " + bonusOneTimeDate +
+  " currentDate=" + new Date());
+while ((new Date()).getTime() <= bonusOneTimeDate.getTime()) {
+}
+console.log("RESULT: Waited until bonusOneTime at " + bonusOneTime + " " + bonusOneTimeDate +
+  " currentDate=" + new Date());
+console.log("RESULT: ");
+
+
+// -----------------------------------------------------------------------------
+var validContribution2Message = "Send Valid Contribution < BONUSTWO_DATE";
+// -----------------------------------------------------------------------------
+console.log("RESULT: " + validContribution2Message);
+var sendValidContribution2Tx = eth.sendTransaction({from: account6, to: tokenAddress, gas: 400000, value: web3.toWei("10", "ether")});
+while (txpool.status.pending > 0) {
+}
 printTxData("sendValidContribution2Tx", sendValidContribution2Tx);
 printBalances();
-failIfGasEqualsGasUsed(sendValidContribution1Tx, validContribution1Message + " - ac5 11,000 ETH = 33,000,000 LOK");
-failIfGasEqualsGasUsed(sendValidContribution2Tx, validContribution1Message + " - ac6 100,000 ETH = 300,000,000 LOK");
+failIfGasEqualsGasUsed(sendValidContribution2Tx, validContribution2Message + " - ac6 10 ETH = 27,000 LOK");
+printTokenContractDetails();
+console.log("RESULT: ");
+
+
+// -----------------------------------------------------------------------------
+// Wait for BONUSTWO_DATE, < END_DATE
+// tokensPerKEther = 2400000;
+// -----------------------------------------------------------------------------
+var bonusTwoTime = token.BONUSTWO_DATE();
+var bonusTwoTimeDate = new Date(bonusTwoTime * 1000);
+console.log("RESULT: Waiting until bonusTwoTime at " + bonusTwoTime + " " + bonusTwoTimeDate +
+  " currentDate=" + new Date());
+while ((new Date()).getTime() <= bonusTwoTimeDate.getTime()) {
+}
+console.log("RESULT: Waited until bonusTwoTime at " + bonusTwoTime + " " + bonusTwoTimeDate +
+  " currentDate=" + new Date());
+console.log("RESULT: ");
+
+
+// -----------------------------------------------------------------------------
+var validContribution3Message = "Send Valid Contribution, < END_DATE";
+// -----------------------------------------------------------------------------
+console.log("RESULT: " + validContribution3Message);
+var sendValidContribution3Tx = eth.sendTransaction({from: account5, to: tokenAddress, gas: 400000, value: web3.toWei("11000", "ether")});
+var sendValidContribution4Tx = eth.sendTransaction({from: account6, to: tokenAddress, gas: 400000, value: web3.toWei("100000", "ether")});
+while (txpool.status.pending > 0) {
+}
+printTxData("sendValidContribution3Tx", sendValidContribution3Tx);
+printTxData("sendValidContribution4Tx", sendValidContribution4Tx);
+printBalances();
+failIfGasEqualsGasUsed(sendValidContribution3Tx, validContribution3Message + " - ac5 11,000 ETH = 26,400,000 LOK");
+failIfGasEqualsGasUsed(sendValidContribution4Tx, validContribution3Message + " - ac6 100,000 ETH = 240,000,000 LOK");
 printTokenContractDetails();
 console.log("RESULT: ");
 

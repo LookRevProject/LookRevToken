@@ -166,28 +166,33 @@ contract LookRevToken is StandardToken {
 
     mapping(address => bool) public kycRequired;
 
-    // Start - Wednesday, August 30, 2017 10:00:00 AM GMT-07:00 DST
-    // End - Saturday, September 30, 2017 10:00:00 AM GMT-07:00 DST
-    uint public constant START_DATE = 1502893150; // Wed 16 Aug 2017 14:19:10 UTC
-    uint public constant END_DATE = 1502893255; // Wed 16 Aug 2017 14:20:55 UTC
+    // Start - Friday, September 8, 2017 3:00:00 PM (8:00:00 AM GMT-07:00 DST)
+    uint public constant START_DATE = 1504198018; // Thu 31 Aug 2017 16:46:58 UTC;
+    // 3000 LOK Per ETH for the 1st 24 Hours - Till Saturday, September 9, 2017 3:00:00 PM UTC (8:00:00 AM GMT-07:00 DST)
+    uint public constant BONUSONE_DATE = 1504198108; // Thu 31 Aug 2017 16:48:28 UTC
+    // 2700 LOK Per ETH for the Next 48 Hours - Till Monday, September 11, 2017 3:00:00 PM (8:00:00 AM GMT-07:00 DST)
+    uint public constant BONUSTWO_DATE = 1504198168; // Thu 31 Aug 2017 16:49:28 UTC
+    // Regular Rate - 2400 LOK Per ETH for the Remaining Part of the Crowdsale
+    // End - Sunday, October 8, 2017 3:00:00 PM (8:00:00 AM GMT-07:00 DST)
+    uint public constant END_DATE = 1504198228; // Thu 31 Aug 2017 16:50:28 UTC
 
     uint public constant DECIMALSFACTOR = 10**uint(decimals);
     uint public constant TOKENS_SOFT_CAP =   10000000 * DECIMALSFACTOR;
     uint public constant TOKENS_HARD_CAP = 2000000000 * DECIMALSFACTOR;
     uint public constant TOKENS_TOTAL =    5000000000 * DECIMALSFACTOR;
-    uint public initialSupply = 10000000 * DECIMALSFACTOR;
+    uint public constant INITIAL_SUPPLY = 10000000 * DECIMALSFACTOR;
 
     // 1 KETHER = 2,400,000 tokens
     // 1 ETH = 2,400 tokens
     uint public tokensPerKEther = 2400000;
     uint public CONTRIBUTIONS_MIN = 0 ether;
     uint public CONTRIBUTIONS_MAX = 0 ether;
-    uint public constant KYC_THRESHOLD = 50000 * DECIMALSFACTOR;
+    uint public constant KYC_THRESHOLD = 100 * DECIMALSFACTOR;
 
     function LookRevToken() {
       owner = msg.sender;
       wallet = owner;
-      totalSupply = initialSupply;
+      totalSupply = INITIAL_SUPPLY;
       balances[owner] = totalSupply;
     }
 
@@ -223,6 +228,17 @@ contract LookRevToken is StandardToken {
 
         require(msg.value > CONTRIBUTIONS_MIN);
         require(CONTRIBUTIONS_MAX == 0 || msg.value < CONTRIBUTIONS_MAX);
+
+         // Add in bonus during the first 24 and 48 hours of the token sale
+         if (now < START_DATE) {
+            tokensPerKEther = 2400000;
+         } else if (now < BONUSONE_DATE) {
+            tokensPerKEther = 3000000;
+         } else if (now < BONUSTWO_DATE) {
+            tokensPerKEther = 2700000;
+         } else {
+            tokensPerKEther = 2400000;
+         }
 
          // Calculate number of tokens for contributed ETH
          // `18` is the ETH decimals
