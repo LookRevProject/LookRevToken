@@ -7,14 +7,17 @@ Bok Consulting Pty Ltd was commissioned to perform an audit on the crowdsale and
 
 This audit has been conducted on the LookRev's source code in commits
 [5761ecf1](https://github.com/LookRevTeam/LookRevToken/tree/5761ecf12e965af0a5b21caee9964e36b9b10466) to
-[98e7e6a5](https://github.com/LookRevTeam/LookRevToken/tree/98e7e6a52a59d949e038968af34442e17ec24165) and
-[e708b6c0](https://github.com/LookRevTeam/LookRevToken/tree/e708b6c01ad6514c7b212b91c39fa0f28b98b3bc).
+[98e7e6a5](https://github.com/LookRevTeam/LookRevToken/tree/98e7e6a52a59d949e038968af34442e17ec24165),
+[e708b6c0](https://github.com/LookRevTeam/LookRevToken/tree/e708b6c01ad6514c7b212b91c39fa0f28b98b3bc) and
+[c0e67cf1](https://github.com/LookRevTeam/LookRevToken/commit/c0e67cf1d9cb93b40d7aa930256723ab36a6598b).
 
 No potential vulnerabilities have been identified in the crowdsale and token contract.
 
 <br />
 
 ### Crowdsale Mainnet Address
+
+The following details will be updated with the latest contract details after deployment.
 
 The *LookRevToken* crowdsale/token contract has been deployed to [0x21ae23b882a340a22282162086bc98d3e2b73018](https://etherscan.io/address/0x21ae23b882a340a22282162086bc98d3e2b73018#code) with the following parameters:
 
