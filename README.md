@@ -1,5 +1,6 @@
-# LookRevToken
-LookRev crowd sale token Specification.  
+# LookRevToken Version 1.0
+LookRev crowd sale token Specification.
+Old ERC20 token contract.
 
 LookRev is a peer-to-peer decentralized marketplace. It allows product creators and service providers to receive and exchange services from each other, creating trust-worthy, mutually beneficial chains of services for product creation, customization and distribution.
 
